@@ -7,3 +7,5 @@ Oefenapp voor Pelle: woordjes in rondes van 10, met de lijsten Onbekend, Lastig,
 - Opnieuw bouwen: `python3 bron/build.py`.
 
 Voortgang staat in de browser van wie oefent (localStorage), gekoppeld aan het adres van de site.
+
+Automatisch online via Cloudflare Workers Builds (Worker: shiny-frost-815e).
