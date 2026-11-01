@@ -5,16 +5,6 @@ W=json.load(open(os.path.join(B,'words.json'),encoding='utf8'))
 lijsten=[]
 FIXA={('3.A','age / agrum'):'ager / agrum'}
 EXTRA={'2.A':[
- ['crepitus (ventris)','scheet / geknal'],
- ['ructo (ructare)','een boer laten'],
- ['rhonchus','gesnurk'],
- ['latrina','wc / toilet'],
- ['simia','aap'],
- ['asinus','(1.) ezel / (2.) domkop'],
- ['pulex','vlo'],
- ['sternuo (sternuĕre)','niezen'],
- ['oscito (oscitare)','gapen'],
- ['nasus','neus'],
  ['crepitus sonorus','knalscheet'],
  ['macula urinae','pisvlek'],
  ['caput tuberosum','aardappelhoofd'],
