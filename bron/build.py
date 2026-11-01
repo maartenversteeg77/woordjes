@@ -4,13 +4,7 @@ import json, re
 W=json.load(open(os.path.join(B,'words.json'),encoding='utf8'))
 lijsten=[]
 FIXA={('3.A','age / agrum'):'ager / agrum'}
-EXTRA={'2.A':[
- ['crepitus sonorus','knalscheet'],
- ['macula urinae','pisvlek'],
- ['caput tuberosum','aardappelhoofd'],
- ['os foetidum','stinkmuil'],
- ['soccus sudans','zweetsok'],
-]}
+EXTRA={}
 FIXB={('2.A','mutat'):'(1.) (hij/zij/het) verandert / (2.) (hij/zij/het) verwisselt'}
 for ch in sorted(W, key=lambda c:(int(c[0]),c[2])):
     lijsten.append({'id':ch,'naam':ch,'woorden':[[FIXA.get((ch,a),a), FIXB.get((ch,a),b)] for a,b in W[ch]['pairs']] + EXTRA.get(ch,[])})
