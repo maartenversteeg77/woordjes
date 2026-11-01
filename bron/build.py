@@ -14,7 +14,7 @@ EXTRA={'2.A':[
 FIXB={('2.A','mutat'):'(1.) (hij/zij/het) verandert / (2.) (hij/zij/het) verwisselt'}
 for ch in sorted(W, key=lambda c:(int(c[0]),c[2])):
     lijsten.append({'id':ch,'naam':ch,'woorden':[[FIXA.get((ch,a),a), FIXB.get((ch,a),b)] for a,b in W[ch]['pairs']] + EXTRA.get(ch,[])})
-data={'latijn':{'naam':'Latijn','bron':'Minerva deel 1, 1/2/3 vwo','lijsten':lijsten},
+data={'latijn':{'naam':'Latijn','bron':'Minerva deel 1, 1/2/3 vwo','lijsten':lijsten,'voorrang':['2.A|'+w[0] for w in EXTRA.get('2.A',[])]},
       'duits':{'naam':'Duits','bron':'','lijsten':[]},'frans':{'naam':'Frans','bron':'','lijsten':[]},'engels':{'naam':'Engels','bron':'','lijsten':[]}}
 t=open(os.path.join(B,'template.html'),encoding='utf8').read()
 t=t.replace('/*DATA*/',json.dumps(data,ensure_ascii=False)).replace('/*MATCH*/',open(os.path.join(B,'match.js'),encoding='utf8').read())

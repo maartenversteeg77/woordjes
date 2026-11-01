@@ -288,8 +288,14 @@ function render() {
 
 function startRound(tab) {
   var pool = scope().filter(function (w) { return catOf(w.id) === tab; });
-  if (!pool.length) return;
-  R = { queue: shuffle(pool).slice(0, ROUND).map(function (w) { return w.id; }), i: 0, res: [], phase: 'ask', from: tab, last: null };
+  // voorrang: nieuwe woorden die in de eerstvolgende ronde uit Onbekend moeten zitten (eenmalig)
+  var vr = TALEN[S.lang].voorrang || [];
+  var pri = tab === 'o' ? WORDS.filter(function (w) { return vr.indexOf(w.ch + '|' + w.term) >= 0 && !S.p[w.id]; }) : [];
+  pool = pool.filter(function (w) { return pri.indexOf(w) < 0; });
+  if (!pool.length && !pri.length) return;
+  var pick = shuffle(pri).slice(0, ROUND);
+  pick = shuffle(pick.concat(shuffle(pool).slice(0, ROUND - pick.length)));
+  R = { queue: pick.map(function (w) { return w.id; }), i: 0, res: [], phase: 'ask', from: tab, last: null };
   render();
 }
 
