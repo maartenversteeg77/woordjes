@@ -1,0 +1,346 @@
+<title>Pelle's Woordjes</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap">
+<style>
+/* Layout: één smalle kolom. Boven de taal en hoofdstukken, dan vier lijsten als tabbladen, daaronder de oefenknop.
+   Oefenen vervangt de kolom door één kaart per woord. */
+:root {
+  --bg: #f1f3f9;
+  --surface: #ffffff;
+  --fg: #151b30;
+  --muted: #586080;
+  --line: #dde1ee;
+  --accent: #2f4fd1;
+  --on-accent: #ffffff;
+  --o: #bd2f4d; --o-bg: #fbe8ec;
+  --l: #9c5a08; --l-bg: #fbeedb;
+  --b: #187a51; --b-bg: #e0f3e9;
+  --s: #0b7a87; --s-bg: #dcf2f4;
+  --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-latin: "Spectral", Georgia, "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1322; --surface: #171d33; --fg: #e9ecf7; --muted: #9aa2c2; --line: #2b3354;
+    --accent: #8aa4ff; --on-accent: #0e1322;
+    --o: #ff93a8; --o-bg: #3a1c27;
+    --l: #f2b65f; --l-bg: #3a2c14;
+    --b: #70d8a4; --b-bg: #153326;
+    --s: #70d4e0; --s-bg: #12323a;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1322; --surface: #171d33; --fg: #e9ecf7; --muted: #9aa2c2; --line: #2b3354;
+  --accent: #8aa4ff; --on-accent: #0e1322;
+  --o: #ff93a8; --o-bg: #3a1c27;
+  --l: #f2b65f; --l-bg: #3a2c14;
+  --b: #70d8a4; --b-bg: #153326;
+  --s: #70d4e0; --s-bg: #12323a;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.45;
+  padding-block: 20px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+button, input, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+#app { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+.langs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
+.lang { border: none; background: none; border-radius: 9px; padding: 10px 4px; font-weight: 700; font-size: 0.95rem; color: var(--muted); min-height: 44px; overflow-wrap: anywhere; }
+.lang[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.top { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+h1 { margin: 0; font-size: 1.7rem; line-height: 1.1; letter-spacing: -0.01em; text-wrap: balance; }
+.sub { margin: 4px 0 0; color: var(--muted); font-size: 0.92rem; }
+.label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin: 0 0 8px; }
+select { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { border: 1px solid var(--line); background: var(--surface); color: var(--fg); border-radius: 8px; padding: 6px 11px; font-weight: 600; font-size: 0.9rem; min-height: 36px; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.chip.all { font-weight: 500; }
+
+.tabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 560px) { .tabs { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.tab { text-align: left; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tab .n { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.tab .t { font-size: 0.85rem; font-weight: 600; color: var(--muted); overflow-wrap: anywhere; }
+.tab[aria-selected="true"] { border-color: var(--c); box-shadow: inset 0 0 0 1px var(--c); background: var(--cbg); }
+.tab[aria-selected="true"] .n, .tab[aria-selected="true"] .t { color: var(--c); }
+.tab[data-k="o"] { --c: var(--o); --cbg: var(--o-bg); }
+.tab[data-k="l"] { --c: var(--l); --cbg: var(--l-bg); }
+.tab[data-k="b"] { --c: var(--b); --cbg: var(--b-bg); }
+.tab[data-k="s"] { --c: var(--s); --cbg: var(--s-bg); }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
+.panel p { margin: 0; }
+.hint { color: var(--muted); }
+.btn { border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 11px 16px; font-weight: 600; min-height: 46px; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; }
+details { border-top: 1px solid var(--line); padding-top: 12px; }
+summary { cursor: pointer; font-weight: 600; }
+.words { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; }
+.words li { display: flex; gap: 10px 12px; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); min-width: 0; flex-wrap: wrap; }
+.words .wtxt { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1 1 180px; }
+.words .move { font-size: 0.85rem; padding: 6px 8px; flex: 0 0 auto; max-width: 100%; }
+.words .lat { font-family: var(--font-latin); font-weight: 600; font-size: 1.05rem; overflow-wrap: anywhere; min-width: 0; }
+.words .nl { color: var(--muted); text-align: left; overflow-wrap: anywhere; min-width: 0; font-size: 0.92rem; }
+.words .ch { color: var(--muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
+.check { display: flex; align-items: center; gap: 8px; font-size: 0.92rem; margin-top: 10px; }
+.check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.foot { display: flex; justify-content: flex-end; gap: 10px; align-items: center; flex-wrap: wrap; color: var(--muted); font-size: 0.85rem; }
+.link { background: none; border: none; padding: 6px 0; color: var(--muted); text-decoration: underline; font-size: 0.85rem; }
+
+/* oefenen */
+.bar { display: flex; align-items: center; gap: 12px; }
+.bar .count { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.track { flex: 1; height: 8px; background: var(--line); border-radius: 99px; overflow: hidden; }
+.fill { height: 100%; background: var(--accent); border-radius: 99px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 22px 18px; display: flex; flex-direction: column; gap: 16px; }
+.ask { margin: 0; }
+.term { font-family: var(--font-latin); font-weight: 600; font-size: clamp(1.9rem, 8vw, 2.6rem); line-height: 1.15; margin: 0; overflow-wrap: anywhere; text-wrap: balance; }
+.from { display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; color: var(--muted); }
+.ans { width: 100%; border: 2px solid var(--line); background: var(--bg); border-radius: 10px; padding: 12px 14px; font-size: 1.15rem; }
+.ans:focus { border-color: var(--accent); outline: none; }
+.fb { border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 6px; background: var(--cbg); color: var(--fg); border-left: 5px solid var(--c); }
+.fb strong { color: var(--c); font-size: 1.05rem; }
+.fb p { margin: 0; overflow-wrap: anywhere; }
+.fb.k-b { --c: var(--b); --cbg: var(--b-bg); }
+.fb.k-l { --c: var(--l); --cbg: var(--l-bg); }
+.fb.k-s { --c: var(--s); --cbg: var(--s-bg); }
+.fb.k-o { --c: var(--o); --cbg: var(--o-bg); }
+.dest { font-size: 0.85rem; color: var(--muted); }
+.big { font-size: 2.2rem; font-weight: 700; margin: 0; font-variant-numeric: tabular-nums; }
+.moves { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 560px) { .moves { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.mv { border-radius: 10px; padding: 10px 12px; background: var(--cbg); color: var(--c); font-weight: 600; }
+.mv .n { display: block; font-size: 1.4rem; font-variant-numeric: tabular-nums; }
+.mv.k-b { --c: var(--b); --cbg: var(--b-bg); } .mv.k-l { --c: var(--l); --cbg: var(--l-bg); }
+.mv.k-s { --c: var(--s); --cbg: var(--s-bg); } .mv.k-o { --c: var(--o); --cbg: var(--o-bg); }
+.res { list-style: none; margin: 0; padding: 0; }
+.res li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.res .lat { font-family: var(--font-latin); font-weight: 600; overflow-wrap: anywhere; }
+.res .nl { color: var(--muted); font-size: 0.88rem; grid-column: 1; overflow-wrap: anywhere; }
+.pill { font-size: 0.75rem; font-weight: 700; padding: 3px 8px; border-radius: 99px; background: var(--cbg); color: var(--c); align-self: start; white-space: nowrap; }
+.pill.k-b { --c: var(--b); --cbg: var(--b-bg); } .pill.k-l { --c: var(--l); --cbg: var(--l-bg); }
+.pill.k-s { --c: var(--s); --cbg: var(--s-bg); } .pill.k-o { --c: var(--o); --cbg: var(--o-bg); }
+@media (prefers-reduced-motion: no-preference) { .fill { transition: width 0.25s ease; } }
+</style>
+
+<div id="app"></div>
+
+<script>
+(function () {
+'use strict';
+var TALEN = /*DATA*/;
+/*MATCH*/
+
+var KEY = 'pelle-woordjes-v1';
+var ROUND = 10;
+var CATS = [
+  { k: 'o', n: 'Onbekend', hint: 'Woorden die je nog moet leren. Een fout antwoord brengt een woord altijd hier terug.' },
+  { k: 'l', n: 'Lastig', hint: 'Goed beantwoord, maar je vond het lastig.' },
+  { k: 's', n: 'Verkeerd gespeld', hint: 'Goed beantwoord, maar niet goed gespeld.' },
+  { k: 'b', n: 'Bekend', hint: 'Goed beantwoord. Oefen ze af en toe opnieuw, zodat je ze niet vergeet.' }
+];
+var CAT = {}; CATS.forEach(function (c) { CAT[c.k] = c; });
+
+function load() { try { var r = localStorage.getItem(KEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+var S = load() || {};
+if (!S.lang || !TALEN[S.lang]) S.lang = Object.keys(TALEN)[0];
+S.sel = S.sel || {}; S.p = S.p || {};
+if (!CAT[S.tab]) S.tab = 'o';
+
+var WORDS = [], BY = {}, VC = {};
+function build() {
+  var T = TALEN[S.lang];
+  WORDS = []; BY = {}; VC = {};
+  T.lijsten.forEach(function (l) {
+    l.woorden.forEach(function (w) {
+      var v = variantsOf(w[1]);
+      var o = { id: S.lang + '|' + l.id + '|' + w[0], term: w[0], nl: w[1], ch: l.id, chn: l.naam, v: v };
+      WORDS.push(o); BY[o.id] = o;
+      v.forEach(function (x) { VC[x] = (VC[x] || 0) + 1; });
+    });
+  });
+}
+build();
+
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function catOf(id) { return (S.p[id] && S.p[id].c) || 'o'; }
+function chosen() {
+  var sel = S.sel[S.lang];
+  var all = TALEN[S.lang].lijsten.map(function (l) { return l.id; });
+  if (!sel || !sel.length) return all;
+  return sel.filter(function (x) { return all.indexOf(x) >= 0; });
+}
+function scope() { var c = chosen(); return WORDS.filter(function (w) { return c.indexOf(w.ch) >= 0; }); }
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+
+var R = null;       // lopende ronde
+var showTrans = false, confirmReset = false, listOpen = false;
+var app = document.getElementById('app');
+
+function renderHome() {
+  var T = TALEN[S.lang], sc = scope(), counts = { o: 0, l: 0, s: 0, b: 0 };
+  sc.forEach(function (w) { counts[catOf(w.id)]++; });
+  var ch = chosen(), allSel = ch.length === T.lijsten.length;
+  var inTab = sc.filter(function (w) { return catOf(w.id) === S.tab; });
+  var langs = Object.keys(TALEN);
+  var h = '<nav class="langs" role="tablist" aria-label="Taal">' + langs.map(function (k) {
+    return '<button class="lang" role="tab" data-a="lang" data-id="' + k + '" aria-selected="' + (k === S.lang) + '">' + esc(TALEN[k].naam) + '</button>';
+  }).join('') + '</nav>';
+  h += '<header class="top"><div><h1>Woordjes</h1><p class="sub">' + esc(T.naam) + (T.bron ? ' · ' + esc(T.bron) : '') + '</p></div></header>';
+  if (!T.lijsten.length) {
+    h += '<section class="panel"><p class="big">Nog geen woorden</p><p class="hint">Voor ' + esc(T.naam) + ' staan er nog geen woordenlijsten in. Zodra ze er zijn, verschijnen ze hier.</p></section>';
+    app.innerHTML = h; return;
+  }
+  h += '<section><p class="label">Hoofdstukken</p><div class="chips">';
+  h += '<button class="chip all" data-a="all" aria-pressed="' + allSel + '">Alles</button>';
+  T.lijsten.forEach(function (l) { h += '<button class="chip" data-a="ch" data-id="' + l.id + '" aria-pressed="' + (ch.indexOf(l.id) >= 0 && !allSel) + '">' + esc(l.naam) + '</button>'; });
+  h += '</div></section>';
+  h += '<div class="tabs" role="tablist" aria-label="Lijsten">';
+  CATS.forEach(function (c) {
+    h += '<button class="tab" role="tab" data-a="tab" data-k="' + c.k + '" aria-selected="' + (S.tab === c.k) + '"><span class="n">' + counts[c.k] + '</span><span class="t">' + c.n + '</span></button>';
+  });
+  h += '</div>';
+  h += '<section class="panel" role="tabpanel"><p class="hint">' + CAT[S.tab].hint + '</p>';
+  var n = Math.min(ROUND, inTab.length);
+  h += '<div class="row"><button class="btn primary" data-a="go"' + (n ? '' : ' disabled') + '>' + (n ? 'Oefen ' + n + (n === 1 ? ' woord' : ' woorden') : 'Geen woorden in deze lijst') + '</button></div>';
+  h += '<details id="lst"' + (listOpen ? ' open' : '') + '><summary>Bekijk en verplaats de woorden (' + inTab.length + ')</summary>';
+  h += '<label class="check"><input type="checkbox" id="showtr"' + (showTrans ? ' checked' : '') + '> Toon de vertalingen</label>';
+  h += '<ul class="words">' + inTab.map(function (w) {
+    var opts = CATS.map(function (c) { return '<option value="' + c.k + '"' + (c.k === S.tab ? ' selected' : '') + '>' + (c.k === S.tab ? c.n : 'Naar ' + c.n) + '</option>'; }).join('');
+    return '<li><div class="wtxt"><span class="lat">' + esc(w.term) + ' <span class="ch">' + esc(w.chn) + '</span></span>' + (showTrans ? '<span class="nl">' + esc(w.nl) + '</span>' : '') + '</div><select class="move" data-id="' + esc(w.id) + '" aria-label="Verplaats ' + esc(w.term) + '">' + opts + '</select></li>';
+  }).join('') + '</ul></details></section>';
+  h += '<div class="foot">';
+  if (confirmReset) h += '<span>Alle voortgang wissen?</span><button class="btn" data-a="reset-yes">Ja, wis alles</button><button class="btn" data-a="reset-no">Nee</button>';
+  else h += '<button class="link" data-a="reset">Alles opnieuw beginnen</button>';
+  h += '</div>';
+  app.innerHTML = h;
+}
+
+function renderAsk() {
+  var w = BY[R.queue[R.i]];
+  var pct = Math.round(R.i / R.queue.length * 100);
+  var h = '<div class="bar"><button class="btn" data-a="stop">Stop</button><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="' + R.queue.length + '" aria-valuenow="' + R.i + '"><div class="fill" style="width:' + pct + '%"></div></div><span class="count">' + (R.i + 1) + ' van ' + R.queue.length + '</span></div>';
+  h += '<form class="card" id="f" autocomplete="off"><div><span class="from">Uit ' + esc(CAT[R.from].n) + ' · ' + esc(w.chn) + '</span></div>';
+  h += '<p class="term" lang="la">' + esc(w.term) + '</p>';
+  h += '<div><label class="label" for="ans">Vertaling in het Nederlands</label><input class="ans" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done"></div>';
+  h += '<label class="check"><input type="checkbox" id="lastig"> Dit woord vind ik lastig</label>';
+  h += '<div class="row"><button class="btn primary" type="submit">Controleer</button><button class="btn" type="button" data-a="skip">Weet ik niet</button></div></form>';
+  app.innerHTML = h;
+  document.getElementById('ans').focus();
+}
+
+function renderResult() {
+  var w = BY[R.queue[R.i]], r = R.last;
+  var pct = Math.round((R.i + 1) / R.queue.length * 100);
+  var h = '<div class="bar"><button class="btn" data-a="stop">Stop</button><div class="track"><div class="fill" style="width:' + pct + '%"></div></div><span class="count">' + (R.i + 1) + ' van ' + R.queue.length + '</span></div>';
+  h += '<div class="card"><p class="term" lang="la">' + esc(w.term) + '</p>';
+  h += '<div class="fb k-' + r.to + '" aria-live="polite">';
+  if (r.r === 'exact') h += '<strong>Goed!</strong><p>' + esc(w.nl) + '</p>';
+  else if (r.r === 'spelling') h += '<strong>Bijna goed, let op de spelling</strong><p>Je schreef: <b>' + esc(r.typed) + '</b></p><p>Goed gespeld: <b>' + esc(r.best) + '</b></p><p class="dest">Volledig antwoord: ' + esc(w.nl) + '</p>';
+  else h += '<strong>' + (r.skipped ? 'Dat wist je nog niet' : 'Niet goed') + '</strong>' + (r.typed ? '<p>Je schreef: ' + esc(r.typed) + '</p>' : '') + '<p>Het antwoord is: <b>' + esc(w.nl) + '</b></p>';
+  h += '<p class="dest">Dit woord gaat naar ' + esc(CAT[r.to].n) + '.</p></div>';
+  h += '<button class="btn primary" id="next" data-a="next">' + (R.i + 1 < R.queue.length ? 'Volgende' : 'Bekijk je resultaat') + '</button></div>';
+  app.innerHTML = h;
+  document.getElementById('next').focus();
+}
+
+function renderSummary() {
+  var mv = { o: 0, l: 0, s: 0, b: 0 }, good = 0;
+  R.res.forEach(function (x) { mv[x.to]++; if (x.r === 'exact') good++; });
+  var left = scope().filter(function (w) { return catOf(w.id) === R.from; }).length;
+  var h = '<header class="top"><div><h1>Klaar</h1><p class="sub">Ronde uit ' + esc(CAT[R.from].n) + '</p></div></header>';
+  h += '<section class="panel"><p class="big">' + good + ' van ' + R.res.length + ' goed</p>';
+  if (R.res.some(function (x) { return x.r === 'spelling'; })) h += '<p class="hint">Een paar woorden had je goed, maar met een spelfout. Die staan nu in Verkeerd gespeld.</p>';
+  h += '<div class="moves">';
+  CATS.forEach(function (c) { h += '<div class="mv k-' + c.k + '"><span class="n">' + mv[c.k] + '</span>naar ' + c.n + '</div>'; });
+  h += '</div><ul class="res">';
+  R.res.forEach(function (x) {
+    var w = BY[x.id];
+    h += '<li><span class="lat">' + esc(w.term) + '</span><span class="pill k-' + x.to + '">' + esc(CAT[x.to].n) + '</span><span class="nl">' + esc(w.nl) + '</span></li>';
+  });
+  h += '</ul><div class="row">';
+  h += '<button class="btn primary" data-a="again"' + (left ? '' : ' disabled') + '>' + (left ? 'Nog ' + Math.min(ROUND, left) + ' woorden uit ' + esc(CAT[R.from].n) : 'Deze lijst is leeg') + '</button>';
+  h += '<button class="btn" data-a="home">Terug naar de lijsten</button></div></section>';
+  app.innerHTML = h;
+  window.scrollTo(0, 0);
+}
+
+function render() {
+  if (!R) return renderHome();
+  if (R.phase === 'ask') return renderAsk();
+  if (R.phase === 'result') return renderResult();
+  return renderSummary();
+}
+
+function startRound(tab) {
+  var pool = scope().filter(function (w) { return catOf(w.id) === tab; });
+  if (!pool.length) return;
+  R = { queue: shuffle(pool).slice(0, ROUND).map(function (w) { return w.id; }), i: 0, res: [], phase: 'ask', from: tab, last: null };
+  render();
+}
+
+function answer(input, skipped) {
+  var w = BY[R.queue[R.i]];
+  var lastig = !!(document.getElementById('lastig') && document.getElementById('lastig').checked);
+  var j = skipped ? { r: 'wrong' } : judge(input, w.v, VC);
+  var to = j.r === 'exact' ? (lastig ? 'l' : 'b') : j.r === 'spelling' ? 's' : 'o';
+  S.p[w.id] = { c: to };
+  save();
+  R.last = { id: w.id, r: j.r, to: to, typed: skipped ? '' : input.trim(), best: j.best, skipped: !!skipped };
+  R.res.push(R.last);
+  R.phase = 'result';
+  render();
+}
+
+app.addEventListener('submit', function (e) {
+  e.preventDefault();
+  var el = document.getElementById('ans');
+  if (!R || R.phase !== 'ask' || !el) return;
+  if (!el.value.trim()) { el.focus(); return; }
+  answer(el.value, false);
+});
+app.addEventListener('change', function (e) {
+  if (e.target.id === 'showtr') { showTrans = e.target.checked; listOpen = true; renderHome(); }
+  if (e.target.classList.contains('move')) { var mid = e.target.getAttribute('data-id'); if (BY[mid]) { S.p[mid] = { c: e.target.value }; save(); listOpen = true; renderHome(); } }
+  if (e.target.id === 'lang') { S.lang = e.target.value; save(); build(); render(); }
+});
+app.addEventListener('toggle', function (e) { if (e.target.id === 'lst') listOpen = e.target.open; }, true);
+app.addEventListener('click', function (e) {
+  var b = e.target.closest('[data-a]'); if (!b) return;
+  var a = b.getAttribute('data-a');
+  if (a === 'lang') { S.lang = b.getAttribute('data-id'); listOpen = false; save(); build(); renderHome(); }
+  else if (a === 'tab') { S.tab = b.getAttribute('data-k'); save(); renderHome(); }
+  else if (a === 'all') { S.sel[S.lang] = null; save(); renderHome(); }
+  else if (a === 'ch') {
+    var id = b.getAttribute('data-id'), cur = chosen().slice();
+    var all = TALEN[S.lang].lijsten.length === cur.length;
+    if (all) cur = [id]; else if (cur.indexOf(id) >= 0) cur = cur.filter(function (x) { return x !== id; }); else cur.push(id);
+    S.sel[S.lang] = cur.length ? cur : null; save(); renderHome();
+  }
+  else if (a === 'go') startRound(S.tab);
+  else if (a === 'again') startRound(R.from);
+  else if (a === 'skip') answer('', true);
+  else if (a === 'next') { R.i++; if (R.i >= R.queue.length) R.phase = 'summary'; else R.phase = 'ask'; render(); }
+  else if (a === 'stop' || a === 'home') { R = null; render(); window.scrollTo(0, 0); }
+  else if (a === 'reset') { confirmReset = true; renderHome(); }
+  else if (a === 'reset-no') { confirmReset = false; renderHome(); }
+  else if (a === 'reset-yes') { S.p = {}; confirmReset = false; save(); renderHome(); }
+});
+
+render();
+})();
+</script>

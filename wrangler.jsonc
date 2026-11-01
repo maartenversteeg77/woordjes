@@ -1,0 +1,6 @@
+{
+  // Pelle's Woordjes: statische site, door Cloudflare gebouwd bij elke push naar main
+  "name": "shiny-frost-815e",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./public" }
+}
