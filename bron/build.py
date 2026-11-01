@@ -4,9 +4,26 @@ import json, re
 W=json.load(open(os.path.join(B,'words.json'),encoding='utf8'))
 lijsten=[]
 FIXA={('3.A','age / agrum'):'ager / agrum'}
+EXTRA={'2.A':[
+ ['crepitus (ventris)','scheet / geknal'],
+ ['ructo (ructare)','een boer laten'],
+ ['rhonchus','gesnurk'],
+ ['latrina','wc / toilet'],
+ ['simia','aap'],
+ ['asinus','(1.) ezel / (2.) domkop'],
+ ['pulex','vlo'],
+ ['sternuo (sternuĕre)','niezen'],
+ ['oscito (oscitare)','gapen'],
+ ['nasus','neus'],
+ ['crepitus sonorus','knalscheet'],
+ ['macula urinae','pisvlek'],
+ ['caput tuberosum','aardappelhoofd'],
+ ['os foetidum','stinkmuil'],
+ ['soccus sudans','zweetsok'],
+]}
 FIXB={('2.A','mutat'):'(1.) (hij/zij/het) verandert / (2.) (hij/zij/het) verwisselt'}
 for ch in sorted(W, key=lambda c:(int(c[0]),c[2])):
-    lijsten.append({'id':ch,'naam':ch,'woorden':[[FIXA.get((ch,a),a), FIXB.get((ch,a),b)] for a,b in W[ch]['pairs']]})
+    lijsten.append({'id':ch,'naam':ch,'woorden':[[FIXA.get((ch,a),a), FIXB.get((ch,a),b)] for a,b in W[ch]['pairs']] + EXTRA.get(ch,[])})
 data={'latijn':{'naam':'Latijn','bron':'Minerva deel 1, 1/2/3 vwo','lijsten':lijsten},
       'duits':{'naam':'Duits','bron':'','lijsten':[]},'frans':{'naam':'Frans','bron':'','lijsten':[]},'engels':{'naam':'Engels','bron':'','lijsten':[]}}
 t=open(os.path.join(B,'template.html'),encoding='utf8').read()
