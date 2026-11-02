@@ -1,0 +1,310 @@
+{
+ "2.A": [
+  [
+   "Rex mira dona accipit.",
+   "De koning ontvangt wonderbaarlijke geschenken."
+  ],
+  [
+   "Servus laetus est.",
+   "De slaaf is blij."
+  ],
+  [
+   "Servus per regiam currit.",
+   "De slaaf rent door het paleis."
+  ],
+  [
+   "Rex mensam tangit: mensa nunc aurum est.",
+   "De koning raakt de tafel aan: de tafel is nu goud."
+  ],
+  [
+   "Rex cibum et vinum tangit: cibus quoque aurum est.",
+   "De koning raakt het eten en de wijn aan: het eten is ook goud."
+  ]
+ ],
+ "2.B": [
+  [
+   "Rex per silvam errat.",
+   "De koning zwerft door het bos."
+  ],
+  [
+   "Rex in montem currit et deum videt.",
+   "De koning rent de berg op en ziet de god."
+  ],
+  [
+   "Deus canit et rex audit.",
+   "De god zingt (speelt) en de koning luistert."
+  ],
+  [
+   "Rex victorem videt: deus victoriam habet.",
+   "De koning ziet de winnaar: de god heeft de overwinning."
+  ],
+  [
+   "Rex autem clamat: \"Victor stultus est!\"",
+   "De koning roept echter: \"De winnaar is dom!\""
+  ]
+ ],
+ "3.A": [
+  [
+   "Agricolae ibi laborant.",
+   "De boeren zwoegen daar."
+  ],
+  [
+   "Forte dea liberos tenet et aquam rogat.",
+   "Toevallig houdt een godin (haar) kinderen vast en vraagt om water."
+  ],
+  [
+   "Sed agricolae aquam non dant.",
+   "Maar de boeren geven geen water."
+  ],
+  [
+   "Dea irata dicit: \"Cur aquam vetatis?\"",
+   "De boze godin zegt: \"Waarom verbieden jullie het water?\""
+  ],
+  [
+   "\"Agricolae, verba mea audite!\"",
+   "\"Boeren, luister naar mijn woorden!\""
+  ]
+ ],
+ "3.B": [
+  [
+   "Ecce! Mater venit; multos filios et multas filias habet.",
+   "Kijk! Een moeder komt; zij heeft veel zonen en veel dochters."
+  ],
+  [
+   "Mater dicit: \"Ego valde magna sum.\"",
+   "De moeder zegt: \"Ik ben zeer groot.\""
+  ],
+  [
+   "\"Dea unum filium et unam filiam habet; ego omnia habeo.\"",
+   "\"De godin heeft één zoon en één dochter; ik heb alles.\""
+  ],
+  [
+   "\"Vos deam iuvare non debetis!\"",
+   "\"Jullie moeten de godin niet helpen!\""
+  ],
+  [
+   "\"Liberi, sedete! Mater vestra vos iuvare potest.\"",
+   "\"Kinderen, ga zitten! Jullie moeder kan jullie helpen.\""
+  ]
+ ],
+ "4.A": [
+  [
+   "Deus pulchram filiam regis spectat.",
+   "De god kijkt naar de mooie dochter van de koning."
+  ],
+  [
+   "Forma filiae deo placet.",
+   "De schoonheid van de dochter valt in de smaak bij de god."
+  ],
+  [
+   "Deus iram deae metuit.",
+   "De god is bang voor de woede van de godin."
+  ],
+  [
+   "Deus, pater deorum, dolum quaerit.",
+   "De god, de vader van de goden, zoekt een list."
+  ],
+  [
+   "Tunc in terram descendit et deae respondet.",
+   "Dan daalt hij af naar de aarde en antwoordt hij de godin."
+  ]
+ ],
+ "4.B": [
+  [
+   "Servus deae filiam regis semper custodit.",
+   "De slaaf van de godin bewaakt de dochter van de koning altijd."
+  ],
+  [
+   "Deus nuntium iubet: \"Servum interfice!\"",
+   "De god beveelt de bode: \"Dood de slaaf!\""
+  ],
+  [
+   "Nuntius gladium parat et servo appropinquat.",
+   "De bode maakt een zwaard gereed en nadert de slaaf."
+  ],
+  [
+   "Primum servum salutat, deinde multa narrat.",
+   "Eerst begroet hij de slaaf, vervolgens vertelt hij veel."
+  ],
+  [
+   "Tunc nuntius gladium capit servumque interficit.",
+   "Dan pakt de bode het zwaard en doodt hij de slaaf."
+  ]
+ ],
+ "5.A": [
+  [
+   "Puer regiam solis intravit.",
+   "De jongen ging het paleis van de zon binnen."
+  ],
+  [
+   "Regia alta et aurea erat.",
+   "Het paleis was hoog en van goud."
+  ],
+  [
+   "Sol puerum cognovit et dixit: \"Accede!\"",
+   "De zon herkende de jongen en zei: \"Kom erbij!\""
+  ],
+  [
+   "Puer accessit et rogavit: \"Esne pater meus?\"",
+   "De jongen kwam erbij en vroeg: \"Bent u mijn vader?\""
+  ],
+  [
+   "Sol gaudebat, quod filium videbat.",
+   "De zon was blij, omdat hij zijn zoon zag."
+  ]
+ ],
+ "5.B": [
+  [
+   "Pater quattuor equos duxit et iunxit.",
+   "De vader bracht vier paarden en spande ze in."
+  ],
+  [
+   "Equi cito currebant.",
+   "De paarden renden snel."
+  ],
+  [
+   "Puer equos flectere non potuit.",
+   "De jongen kon de paarden niet bijsturen."
+  ],
+  [
+   "Ingenium pueri non sufficiebat.",
+   "Het talent van de jongen was niet voldoende."
+  ],
+  [
+   "Denique deus invitus puerum interfecit.",
+   "Ten slotte doodde de god tegen zijn wil de jongen."
+  ]
+ ],
+ "6.A": [
+  [
+   "Romani pro patria pugnabant.",
+   "De Romeinen vochten voor het vaderland."
+  ],
+  [
+   "Pater filium pugnare vetuit.",
+   "De vader verbood zijn zoon te vechten."
+  ],
+  [
+   "Filius autem patri non paruit, quia superbus erat.",
+   "Maar de zoon gehoorzaamde zijn vader niet, omdat hij hoogmoedig was."
+  ],
+  [
+   "Cum filius cum gladio pugnavit, homo superbus cecidit.",
+   "Toen de zoon met het zwaard vocht, sneuvelde de hoogmoedige man."
+  ],
+  [
+   "Tamen filius poena dignus erat.",
+   "Toch verdiende de zoon straf (was hij straf waard)."
+  ]
+ ],
+ "6.B": [
+  [
+   "Tota Roma timebat.",
+   "Heel Rome was bang."
+  ],
+  [
+   "Mater cum aliis feminis a Roma ad castra filii venit.",
+   "De moeder kwam met andere vrouwen vanuit Rome naar het legerkamp van haar zoon."
+  ],
+  [
+   "Filius in castris sedebat et matrem vidit.",
+   "De zoon zat in het legerkamp en zag zijn moeder."
+  ],
+  [
+   "Mater dixit: \"Amicus patriae tuae non es!\"",
+   "De moeder zei: \"Jij bent geen vriend van jouw vaderland!\""
+  ],
+  [
+   "Filius ei paruit et castra movit.",
+   "De zoon gehoorzaamde haar en brak het kamp op."
+  ]
+ ],
+ "7.A": [
+  [
+   "Homo dives villam magnam habebat.",
+   "Een rijke man had een groot landhuis."
+  ],
+  [
+   "Dominus crudelis imperatorem in villam invitavit.",
+   "De wrede heer nodigde de keizer uit in zijn landhuis."
+  ],
+  [
+   "Dum imperator sedet, servus mensam domini fregit.",
+   "Terwijl de keizer zat, brak een slaaf de tafel van de heer."
+  ],
+  [
+   "Dominus crudelis servo non parcit.",
+   "De wrede heer spaart de slaaf niet."
+  ],
+  [
+   "Sed imperator servum servavit, nam crudelitas domini gravis erat.",
+   "Maar de keizer redde de slaaf, want de wreedheid van de heer was ernstig."
+  ]
+ ],
+ "7.B": [
+  [
+   "Alii servos homines putant, alii non.",
+   "Sommigen beschouwen slaven als mensen, anderen niet."
+  ],
+  [
+   "Hominem non ex veste aestimare debemus.",
+   "We moeten een mens niet naar zijn kleding beoordelen."
+  ],
+  [
+   "Opinio domini non semper bona est.",
+   "De mening van een heer is niet altijd goed."
+  ],
+  [
+   "In villa ingenti magnum silentium erat.",
+   "In het enorme landhuis was een grote stilte."
+  ],
+  [
+   "Servus fortis bonum exemplum est.",
+   "Een dappere slaaf is een goed voorbeeld."
+  ]
+ ],
+ "8.A": [
+  [
+   "Princeps pacem populo Romano dedit.",
+   "De keizer gaf het Romeinse volk vrede."
+  ],
+  [
+   "Hic dux hostes vicit et urbem servavit.",
+   "Deze leider overwon de vijanden en redde de stad."
+  ],
+  [
+   "Populus ei munus magnum dedit.",
+   "Het volk gaf hem een groot geschenk."
+  ],
+  [
+   "Ante bellum hostes multa scelera egerunt.",
+   "Vóór de oorlog pleegden de vijanden veel misdaden."
+  ],
+  [
+   "Virtus eius nota est; haec virtus vobis exemplum est.",
+   "Zijn moed is bekend; deze moed is voor jullie een voorbeeld."
+  ]
+ ],
+ "8.B": [
+  [
+   "Quid agitis, pueri? Tacete!",
+   "Wat doen jullie, jongens? Zwijg!"
+  ],
+  [
+   "Ludus multis pueris invisus est.",
+   "De school is gehaat bij veel jongens."
+  ],
+  [
+   "Adhuc pueri clamant; nondum tacent.",
+   "Nog steeds schreeuwen de jongens; ze zwijgen nog niet."
+  ],
+  [
+   "Pater filium cum pecunia ad ludum misit.",
+   "De vader stuurde zijn zoon met geld naar school."
+  ],
+  [
+   "Venite nobiscum! Nox est et somnus vobis necesse est.",
+   "Kom met ons mee! Het is nacht en slaap is voor jullie noodzakelijk."
+  ]
+ ]
+}
