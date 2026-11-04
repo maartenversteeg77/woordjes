@@ -611,6 +611,88 @@
     "zubereiten",
     "bereiden"
    ]
+  ],
+  "6": [
+   [
+    "der Becher Joghurt | die Becher Joghurt",
+    "de beker yoghurt"
+   ],
+   [
+    "das Brot | die Brote",
+    "het brood"
+   ],
+   [
+    "das Brötchen | die Brötchen",
+    "het broodje"
+   ],
+   [
+    "die Butter",
+    "de boter"
+   ],
+   [
+    "das Ei | die Eier",
+    "het ei"
+   ],
+   [
+    "die Erdnussbutter",
+    "de pindakaas"
+   ],
+   [
+    "frühstücken",
+    "ontbijten"
+   ],
+   [
+    "das Glas Saft | die Gläser Saft",
+    "het glas sap"
+   ],
+   [
+    "der Honig",
+    "de honing"
+   ],
+   [
+    "der Käse",
+    "de kaas"
+   ],
+   [
+    "die Marmelade | die Marmeladen",
+    "de jam"
+   ],
+   [
+    "die Milch",
+    "de melk"
+   ],
+   [
+    "der Pfannkuchen | die Pfannkuchen",
+    "de pannenkoek"
+   ],
+   [
+    "das Schälchen Müsli | die Schälchen Müsli",
+    "het kommetje muesli"
+   ],
+   [
+    "der Schinken | die Schinken",
+    "de ham"
+   ],
+   [
+    "die Schokoladencreme",
+    "de chocoladepasta"
+   ],
+   [
+    "die Schokostreusel",
+    "de hagelslag"
+   ],
+   [
+    "die Tasse Kakao | die Tassen Kakao",
+    "de kop chocolademelk"
+   ],
+   [
+    "der Tee",
+    "de thee"
+   ],
+   [
+    "die Wurst | die Würste",
+    "de worst, vleeswaren"
+   ]
   ]
  },
  "zinnen": {
@@ -706,6 +788,68 @@
     "Mijn pizza is het grootst."
    ]
   ],
-  "4.1": []
+  "4.1": [],
+  "6": [
+   [
+    "Kannst du bitte auch Käse mitbringen?",
+    "Kun je ook kaas meebrengen, alsjeblieft?"
+   ],
+   [
+    "Der Kühlschrank ist leer.",
+    "De koelkast is leeg."
+   ],
+   [
+    "Wir müssen einkaufen.",
+    "We moeten boodschappen doen."
+   ],
+   [
+    "Ich habe vergessen, Brot zu kaufen.",
+    "Ik ben vergeten brood te kopen."
+   ],
+   [
+    "Es ist kein Schinken mehr da und die Butter ist alle.",
+    "Er is geen ham meer en de boter is op."
+   ],
+   [
+    "Wir brauchen noch eine Packung Kaffee/Saft/Tee.",
+    "We hebben nog een pak koffie/sap/thee nodig."
+   ],
+   [
+    "Wir haben noch genug Milch / keine Milch mehr.",
+    "We hebben nog genoeg melk / geen melk meer."
+   ],
+   [
+    "Ich esse gern ein Croissant und trinke gern Kaffee.",
+    "Ik eet graag een croissant en drink graag koffie."
+   ],
+   [
+    "Zum Frühstück esse ich Vollkornbrot.",
+    "Bij het ontbijt eet ik volkorenbrood."
+   ],
+   [
+    "Am Sonntag esse ich oft ein Ei und Obst.",
+    "Op zondag eet ik vaak een ei en fruit."
+   ],
+   [
+    "Am liebsten esse ich morgens Pfannkuchen / ein Brötchen mit Käse.",
+    "Het liefst eet ik ’s morgens pannenkoeken / een broodje kaas."
+   ],
+   [
+    "Ich frühstücke immer/oft/manchmal Joghurt und Müsli.",
+    "Ik ontbijt altijd/vaak/soms met yoghurt en muesli."
+   ],
+   [
+    "Cornflakes mag ich nicht / sehr gern.",
+    "Cornflakes lust ik niet / heel graag."
+   ],
+   [
+    "Zum Frühstück trinke ich immer eine Tasse Tee / ein Glas Milch.",
+    "Bij het ontbijt drink ik altijd een kop thee / een glas melk."
+   ],
+   [
+    "Am Wochenende gibt es immer frische Brötchen.",
+    "In het weekend zijn er altijd verse broodjes."
+   ]
+  ]
  }
 }
