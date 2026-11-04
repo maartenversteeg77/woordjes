@@ -1,5 +1,9 @@
 // Antwoordcontrole. Wordt zowel in de app als in de test gebruikt.
-function strip(s) { return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase(); }
+var STRICT = false; // true bij antwoorden in een moderne vreemde taal: umlauts tellen mee, ß = ss
+function strip(s) {
+  if (STRICT) return s.normalize('NFC').toLowerCase().replace(/ß/g, 'ss').replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue');
+  return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+}
 function norm(s) {
   return strip(s).replace(/[()]/g, '').replace(/[.,;:!?'"“”‘’]/g, ' ').replace(/\s+/g, ' ').trim();
 }
@@ -56,11 +60,15 @@ function splitBare(p) {
   var prefix = m ? m[0] : '';
   return pieces.map(function (x, i) { return i === 0 || !prefix ? x : prefix + x.trim(); });
 }
-function variantsOf(nl) {
+function variantsOf(nl, strict) {
+  STRICT = !!strict;
   var s = nl.replace(/\(\s*\d\.\)/g, '|').replace(/\(\s*\+[^)]*\)/g, '').replace(/\.{3}|…/g, ' ');
   s = s.replace(/(^|\|)\s*hij\s*\/\s*zij\s*\/\s*het\s+/g, '$1(hij/zij/het) ');
   var parts = [];
-  splitSpaced(s).forEach(function (p) { splitBare(p).forEach(function (q) { parts.push(q); }); });
+  splitSpaced(s).forEach(function (p) {
+    splitBare(p).forEach(function (q) { parts.push(q); });
+    if (/, /.test(p)) p.split(/\s*,\s+/).forEach(function (q) { if (q.trim()) parts.push(q); });
+  });
   parts.push(s.replace(/\|/g, ' '));
   var set = {};
   parts.forEach(function (p) {
@@ -68,6 +76,7 @@ function variantsOf(nl) {
       var n = norm(v);
       if (!n) return;
       set[n] = true;
+      if (!STRICT) { var na = n.replace(/^(de|het|een) /, ''); if (na && na !== n) set[na] = true; }
       if (/^perf /.test(n)) set['perfectum ' + n.slice(5)] = true;
     });
   });
@@ -86,12 +95,13 @@ function lev(a, b) {
 }
 function tolerance(len) { return len <= 3 ? 0 : len <= 8 ? 1 : 2; }
 // vars: varianten van dit woord; others: set van varianten die bij een ander woord horen
-function judge(input, vars, others) {
+function judge(input, vars, others, strict) {
+  STRICT = !!strict;
   var n = norm(input);
   if (!n) return { r: 'wrong' };
   if (vars.indexOf(n) >= 0) return { r: 'exact' };
   // meerdere vertalingen achter elkaar ("hoort, luistert" / "zoeken en vragen"): goed als elk deel goed is
-  var pieces = input.split(/\s*[\/,;]\s*|\s+of\s+|\s+en\s+/).map(norm).filter(Boolean);
+  var pieces = input.split(/\s*[\/,;]\s*|\s+of\s+|\s+en\s+|\s+oder\s+|\s+und\s+/).map(norm).filter(Boolean);
   if (pieces.length > 1 && pieces.every(function (x) { return vars.indexOf(x) >= 0; })) return { r: 'exact' };
   if (others && others[n]) return { r: 'wrong' };
   var best = null, bd = 99;
@@ -100,6 +110,11 @@ function judge(input, vars, others) {
     if (d < bd) { bd = d; best = v; }
   });
   if (best !== null && bd <= tolerance(best.length)) return { r: 'spelling', best: best };
+  // Duits: goed woord maar zonder lidwoord -> telt als bijna goed
+  if (STRICT) for (var k = 0; k < vars.length; k++) {
+    var m = /^(der|die|das) (.+)$/.exec(vars[k]);
+    if (m && m[2] === n) return { r: 'spelling', best: vars[k] };
+  }
   return { r: 'wrong' };
 }
 if (typeof module !== 'undefined') module.exports = { norm: norm, variantsOf: variantsOf, judge: judge, lev: lev };

@@ -172,6 +172,7 @@ var S = load() || {};
 if (!S.lang || !TALEN[S.lang]) S.lang = Object.keys(TALEN)[0];
 S.sel = S.sel || {}; S.p = S.p || {};
 if (!CAT[S.tab]) S.tab = 'o';
+S.dir = S.dir || {};
 S.z = S.z || {}; if (S.mode !== 'z') S.mode = 'w'; if (S.ztab !== 'b') S.ztab = 'o';
 var ZROUND = 5;
 var ZCATS = [
@@ -181,19 +182,22 @@ var ZCATS = [
 var ZCAT = { o: ZCATS[0], b: ZCATS[1] };
 
 var WORDS = [], BY = {}, VC = {}, ZS = [], ZBY = {};
+function rev() { return !!(TALEN[S.lang].richting && S.dir[S.lang] === 'nd'); }
+function eenh() { return TALEN[S.lang].eenheid || 'Hoofdstuk'; }
 function build() {
-  var T = TALEN[S.lang];
+  var T = TALEN[S.lang], R2 = rev(), pre = S.lang + (R2 ? '|nd' : '');
   WORDS = []; BY = {}; VC = {}; ZS = []; ZBY = {};
   (T.zinnen || []).forEach(function (l) {
     l.zinnen.forEach(function (z, i) {
-      var o = { id: S.lang + '|zin|' + l.id + '|' + (i + 1), lat: z[0], nl: z[1], ch: l.id, chn: l.naam };
+      var o = { id: pre + '|zin|' + l.id + '|' + (i + 1), lat: R2 ? z[1] : z[0], nl: R2 ? z[0] : z[1], ch: l.id, chn: l.naam };
       ZS.push(o); ZBY[o.id] = o;
     });
   });
   T.lijsten.forEach(function (l) {
     l.woorden.forEach(function (w) {
-      var v = variantsOf(w[1]);
-      var o = { id: S.lang + '|' + l.id + '|' + w[0], term: w[0], nl: w[1], ch: l.id, chn: l.naam, v: v };
+      var q = R2 ? w[1] : w[0], a = R2 ? w[0] : w[1];
+      var v = variantsOf(a, R2);
+      var o = { id: pre + '|' + l.id + '|' + w[0], term: q, nl: a, ch: l.id, chn: l.naam, v: v };
       WORDS.push(o); BY[o.id] = o;
       v.forEach(function (x) { VC[x] = (VC[x] || 0) + 1; });
     });
@@ -235,7 +239,11 @@ function renderHome() {
   }
   var zmode = hasZ() && S.mode === 'z';
   if (hasZ()) h += '<nav class="modes" role="tablist" aria-label="Oefening"><button class="mode" role="tab" data-a="mode" data-id="w" aria-selected="' + !zmode + '">Woordjes</button><button class="mode" role="tab" data-a="mode" data-id="z" aria-selected="' + zmode + '">Zinnen vertalen</button></nav>';
-  h += '<section><p class="label">Hoofdstukken</p><div class="chips">';
+  if (T.richting) {
+    var vn = T.naam, nd = rev();
+    h += '<nav class="modes" role="tablist" aria-label="Richting"><button class="mode" role="tab" data-a="dir" data-id="dn" aria-selected="' + !nd + '">' + esc(vn) + ' → Nederlands</button><button class="mode" role="tab" data-a="dir" data-id="nd" aria-selected="' + nd + '">Nederlands → ' + esc(vn) + '</button></nav>';
+  }
+  h += '<section><p class="label">' + (T.eenheid ? 'Lektionen' : 'Hoofdstukken') + '</p><div class="chips">';
   h += '<button class="chip all" data-a="all" aria-pressed="' + allSel + '">Alles</button>';
   T.lijsten.forEach(function (l) { h += '<button class="chip" data-a="ch" data-id="' + l.id + '" aria-pressed="' + (ch.indexOf(l.id) >= 0 && !allSel) + '">' + esc(l.naam) + '</button>'; });
   h += '</div></section>';
@@ -255,8 +263,8 @@ function renderHome() {
     return '<li><div class="wtxt"><span class="lat">' + esc(w.term) + ' <span class="ch">' + esc(w.chn) + '</span></span>' + (showTrans ? '<span class="nl">' + esc(w.nl) + '</span>' : '') + '</div><select class="move" data-id="' + esc(w.id) + '" aria-label="Verplaats ' + esc(w.term) + '">' + opts + '</select></li>';
   }).join('') + '</ul></details></section>';
   h += '<div class="foot">';
-  if (confirmReset) h += '<span>Alle voortgang wissen?</span><button class="btn" data-a="reset-yes">Ja, wis alles</button><button class="btn" data-a="reset-no">Nee</button>';
-  else h += '<button class="link" data-a="reset">Alles opnieuw beginnen</button>';
+  if (confirmReset) h += '<span>Voortgang van deze woordjes wissen? Andere talen blijven staan.</span><button class="btn" data-a="reset-yes">Ja, wis</button><button class="btn" data-a="reset-no">Nee</button>';
+  else h += '<button class="link" data-a="reset">' + esc(TALEN[S.lang].naam) + ' opnieuw beginnen</button>';
   h += '</div>';
   app.innerHTML = h;
 }
@@ -266,8 +274,8 @@ function renderAsk() {
   var pct = Math.round(R.i / R.queue.length * 100);
   var h = '<div class="bar"><button class="btn" data-a="stop">Stop</button><div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="' + R.queue.length + '" aria-valuenow="' + R.i + '"><div class="fill" style="width:' + pct + '%"></div></div><span class="count">' + (R.i + 1) + ' van ' + R.queue.length + '</span></div>';
   h += '<form class="card" id="f" autocomplete="off"><div><span class="from">Uit ' + esc(CAT[R.from].n) + ' · ' + esc(w.chn) + '</span></div>';
-  h += '<p class="term" lang="la">' + esc(w.term) + '</p>';
-  h += '<div><label class="label" for="ans">Vertaling in het Nederlands</label><input class="ans" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done"></div>';
+  h += '<p class="term" lang="' + (rev() ? 'nl' : TALEN[S.lang].code || 'la') + '">' + esc(w.term) + '</p>';
+  h += '<div><label class="label" for="ans">Vertaling in het ' + (rev() ? esc(TALEN[S.lang].naam) : 'Nederlands') + '</label><input class="ans" id="ans" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done"></div>';
   h += '<label class="check"><input type="checkbox" id="lastig"> Dit woord vind ik lastig</label>';
   h += '<div class="row"><button class="btn primary" type="submit">Controleer</button><button class="btn" type="button" data-a="skip">Weet ik niet</button></div></form>';
   app.innerHTML = h;
@@ -337,8 +345,8 @@ function zBar(done) {
 function zAsk() {
   var z = ZBY[R.queue[R.i]];
   var h = zBar(R.i);
-  h += '<form class="card" id="zf" autocomplete="off"><div><span class="from">Uit ' + esc(ZCAT[R.from].n) + ' · hoofdstuk ' + esc(z.chn) + '</span></div>';
-  h += '<p class="zin" lang="la">' + esc(z.lat) + '</p>';
+  h += '<form class="card" id="zf" autocomplete="off"><div><span class="from">Uit ' + esc(ZCAT[R.from].n) + ' · ' + eenh().toLowerCase() + ' ' + esc(z.chn) + '</span></div>';
+  h += '<p class="zin" lang="' + (rev() ? 'nl' : TALEN[S.lang].code || 'la') + '">' + esc(z.lat) + '</p>';
   h += '<div><label class="label" for="zans">Jouw vertaling</label><textarea class="ans" id="zans" rows="3" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false"></textarea></div>';
   h += '<div class="row"><button class="btn primary" type="submit">Bekijk het antwoord</button><button class="btn" type="button" data-a="zskip">Weet ik niet</button></div></form>';
   app.innerHTML = h;
@@ -412,7 +420,7 @@ function startRound(tab) {
 function answer(input, skipped) {
   var w = BY[R.queue[R.i]];
   var lastig = !!(document.getElementById('lastig') && document.getElementById('lastig').checked);
-  var j = skipped ? { r: 'wrong' } : judge(input, w.v, VC);
+  var j = skipped ? { r: 'wrong' } : judge(input, w.v, VC, rev());
   var to = j.r === 'exact' ? (lastig ? 'l' : 'b') : j.r === 'spelling' ? 's' : 'o';
   S.p[w.id] = { c: to };
   save();
@@ -445,6 +453,7 @@ app.addEventListener('click', function (e) {
   var b = e.target.closest('[data-a]'); if (!b) return;
   var a = b.getAttribute('data-a');
   if (a === 'lang') { S.lang = b.getAttribute('data-id'); listOpen = false; save(); build(); renderHome(); }
+  else if (a === 'dir') { S.dir[S.lang] = b.getAttribute('data-id'); listOpen = false; save(); build(); renderHome(); }
   else if (a === 'mode') { S.mode = b.getAttribute('data-id'); confirmReset = false; save(); renderHome(); }
   else if (a === 'ztab') { S.ztab = b.getAttribute('data-k'); save(); renderHome(); }
   else if (a === 'zgo') zStart(S.ztab);
@@ -468,7 +477,11 @@ app.addEventListener('click', function (e) {
   else if (a === 'stop' || a === 'home') { R = null; render(); window.scrollTo(0, 0); }
   else if (a === 'reset') { confirmReset = true; renderHome(); }
   else if (a === 'reset-no') { confirmReset = false; renderHome(); }
-  else if (a === 'reset-yes') { if (hasZ() && S.mode === 'z') S.z = {}; else S.p = {}; confirmReset = false; save(); renderHome(); }
+  else if (a === 'reset-yes') {
+    // alleen de taal en richting die nu open staan
+    var ids = (hasZ() && S.mode === 'z') ? ZS.map(function (z) { return z.id; }) : WORDS.map(function (w) { return w.id; });
+    var box = (hasZ() && S.mode === 'z') ? S.z : S.p;
+    ids.forEach(function (id) { delete box[id]; }); confirmReset = false; save(); renderHome(); }
 });
 
 render();

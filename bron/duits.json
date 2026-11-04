@@ -1,0 +1,711 @@
+{
+ "woorden": {
+  "4.2": [
+   [
+    "erste",
+    "eerste"
+   ],
+   [
+    "zweite",
+    "tweede"
+   ],
+   [
+    "dritte",
+    "derde"
+   ],
+   [
+    "vierte",
+    "vierde"
+   ],
+   [
+    "fünfte",
+    "vijfde"
+   ],
+   [
+    "sechste",
+    "zesde"
+   ],
+   [
+    "siebte",
+    "zevende"
+   ],
+   [
+    "achte",
+    "achtste"
+   ],
+   [
+    "neunte",
+    "negende"
+   ],
+   [
+    "zehnte",
+    "tiende"
+   ],
+   [
+    "elfte",
+    "elfde"
+   ],
+   [
+    "zwölfte",
+    "twaalfde"
+   ],
+   [
+    "dreizehnte",
+    "dertiende"
+   ],
+   [
+    "vierzehnte",
+    "veertiende"
+   ],
+   [
+    "fünfzehnte",
+    "vijftiende"
+   ],
+   [
+    "sechzehnte",
+    "zestiende"
+   ],
+   [
+    "siebzehnte",
+    "zeventiende"
+   ],
+   [
+    "achtzehnte",
+    "achttiende"
+   ],
+   [
+    "neunzehnte",
+    "negentiende"
+   ],
+   [
+    "zwanzigste",
+    "twintigste"
+   ],
+   [
+    "einundzwanzigste",
+    "eenentwintigste"
+   ],
+   [
+    "zweiundzwanzigste",
+    "tweeëntwintigste"
+   ],
+   [
+    "dreiundzwanzigste",
+    "drieëntwintigste"
+   ],
+   [
+    "vierundzwanzigste",
+    "vierentwintigste"
+   ],
+   [
+    "fünfundzwanzigste",
+    "vijfentwintigste"
+   ],
+   [
+    "sechsundzwanzigste",
+    "zesentwintigste"
+   ],
+   [
+    "siebenundzwanzigste",
+    "zevenentwintigste"
+   ],
+   [
+    "achtundzwanzigste",
+    "achtentwintigste"
+   ],
+   [
+    "neunundzwanzigste",
+    "negenentwintigste"
+   ],
+   [
+    "dreißigste",
+    "dertigste"
+   ]
+  ],
+  "5": [
+   [
+    "beliebt",
+    "populair"
+   ],
+   [
+    "die Birne | die Birnen",
+    "de peer"
+   ],
+   [
+    "brauchen",
+    "nodig hebben"
+   ],
+   [
+    "daheim",
+    "thuis"
+   ],
+   [
+    "die Ernährung",
+    "de voeding"
+   ],
+   [
+    "erwarten",
+    "verwachten"
+   ],
+   [
+    "der Garten | die Gärten",
+    "de tuin"
+   ],
+   [
+    "das Geheimnis | die Geheimnisse",
+    "het geheim"
+   ],
+   [
+    "der Geschmack | die Geschmäcker",
+    "de smaak"
+   ],
+   [
+    "die Kirsche | die Kirschen",
+    "de kers"
+   ],
+   [
+    "leer",
+    "leeg"
+   ],
+   [
+    "leicht",
+    "makkelijk, licht"
+   ],
+   [
+    "manchmal",
+    "soms"
+   ],
+   [
+    "die Mandarine | die Mandarinen",
+    "de mandarijn"
+   ],
+   [
+    "das Mehl",
+    "de bloem"
+   ],
+   [
+    "niemals",
+    "nooit"
+   ],
+   [
+    "die Pflanze | die Pflanzen",
+    "de plant"
+   ],
+   [
+    "die Pflaume | die Pflaumen",
+    "de pruim"
+   ],
+   [
+    "das Salz | die Salze",
+    "het zout"
+   ],
+   [
+    "die Stunde | die Stunden",
+    "het uur"
+   ],
+   [
+    "der Zucker",
+    "de suiker"
+   ],
+   [
+    "zunächst",
+    "eerst"
+   ],
+   [
+    "die Zutat | die Zutaten",
+    "het ingrediënt"
+   ]
+  ],
+  "3": [
+   [
+    "bar / mit Karte bezahlen",
+    "contant betalen / pinnen"
+   ],
+   [
+    "der Becher | die Becher",
+    "de beker"
+   ],
+   [
+    "das Besteck | die Bestecke",
+    "het bestek"
+   ],
+   [
+    "bestellen",
+    "bestellen"
+   ],
+   [
+    "die Dose | die Dosen",
+    "het blikje"
+   ],
+   [
+    "die Flasche | die Flaschen",
+    "de fles"
+   ],
+   [
+    "die Gabel | die Gabeln",
+    "de vork"
+   ],
+   [
+    "das Glas | die Gläser",
+    "het glas"
+   ],
+   [
+    "die Hauptspeise | die Hauptspeisen",
+    "het hoofdgerecht"
+   ],
+   [
+    "der Löffel | die Löffel",
+    "de lepel"
+   ],
+   [
+    "das Messer | die Messer",
+    "het mes"
+   ],
+   [
+    "die Nachspeise | die Nachspeisen",
+    "het nagerecht"
+   ],
+   [
+    "die Pizza | die Pizzen",
+    "de pizza"
+   ],
+   [
+    "der Platz | die Plätze",
+    "de plek, plaats"
+   ],
+   [
+    "die Pommes (frites)",
+    "friet, patat"
+   ],
+   [
+    "die Rechnung | die Rechnungen",
+    "de rekening"
+   ],
+   [
+    "der Reis",
+    "de rijst"
+   ],
+   [
+    "reservieren",
+    "reserveren"
+   ],
+   [
+    "der Salat | die Salate",
+    "de salade"
+   ],
+   [
+    "die Serviette | die Servietten",
+    "het servet"
+   ],
+   [
+    "die Soße | die Soßen",
+    "de saus"
+   ],
+   [
+    "die Speisekarte | die Speisekarten",
+    "de menukaart"
+   ],
+   [
+    "die Tasse | die Tassen",
+    "het kopje"
+   ],
+   [
+    "der Teller | die Teller",
+    "het bord"
+   ],
+   [
+    "der Tisch | die Tische",
+    "de tafel"
+   ],
+   [
+    "das Trinkgeld | die Trinkgelder",
+    "de fooi"
+   ],
+   [
+    "vegan",
+    "veganistisch"
+   ],
+   [
+    "vegetarisch",
+    "vegetarisch"
+   ],
+   [
+    "die Vorspeise | die Vorspeisen",
+    "het voorgerecht"
+   ],
+   [
+    "das Würstchen | die Würstchen",
+    "het worstje"
+   ]
+  ],
+  "2": [
+   [
+    "die Aufmerksamkeit | die Aufmerksamkeiten",
+    "de aandacht"
+   ],
+   [
+    "außerdem",
+    "bovendien"
+   ],
+   [
+    "damals",
+    "toen"
+   ],
+   [
+    "einzigartig",
+    "uniek"
+   ],
+   [
+    "erfinden",
+    "uitvinden, bedenken"
+   ],
+   [
+    "erst",
+    "pas"
+   ],
+   [
+    "der Esslöffel | die Esslöffel",
+    "de eetlepel"
+   ],
+   [
+    "die Gurke | die Gurken",
+    "de komkommer"
+   ],
+   [
+    "herstellen",
+    "maken, produceren"
+   ],
+   [
+    "inzwischen",
+    "intussen"
+   ],
+   [
+    "jetzt",
+    "nu"
+   ],
+   [
+    "das Öl | die Öle",
+    "de olie"
+   ],
+   [
+    "die Pfanne | die Pfannen",
+    "de braadpan"
+   ],
+   [
+    "der Pfeffer | die Pfeffer",
+    "de peper"
+   ],
+   [
+    "schälen",
+    "schillen, pellen"
+   ],
+   [
+    "die Schüssel | die Schüsseln",
+    "de kom"
+   ],
+   [
+    "wachsen",
+    "groeien"
+   ],
+   [
+    "weltweit",
+    "wereldwijd"
+   ],
+   [
+    "wichtig",
+    "belangrijk"
+   ],
+   [
+    "die Zubereitung | die Zubereitungen",
+    "de bereiding"
+   ],
+   [
+    "die Zucchini | die Zucchini",
+    "de courgette"
+   ],
+   [
+    "zum Schluss",
+    "ten slotte, tot slot"
+   ],
+   [
+    "die Zwiebel | die Zwiebeln",
+    "de ui"
+   ]
+  ],
+  "1.2": [
+   [
+    "groß",
+    "groot"
+   ],
+   [
+    "größer",
+    "groter"
+   ],
+   [
+    "am größten",
+    "het grootst"
+   ],
+   [
+    "gern",
+    "graag"
+   ],
+   [
+    "lieber",
+    "liever"
+   ],
+   [
+    "am liebsten",
+    "het liefst"
+   ],
+   [
+    "kalt",
+    "koud"
+   ],
+   [
+    "kälter",
+    "kouder"
+   ],
+   [
+    "am kältesten",
+    "het koudst"
+   ],
+   [
+    "oft / häufig",
+    "vaak"
+   ],
+   [
+    "öfter / häufiger",
+    "vaker"
+   ],
+   [
+    "am häufigsten",
+    "het vaakst"
+   ],
+   [
+    "gut",
+    "goed"
+   ],
+   [
+    "besser",
+    "beter"
+   ],
+   [
+    "am besten",
+    "het best"
+   ],
+   [
+    "viel",
+    "veel"
+   ],
+   [
+    "mehr",
+    "meer"
+   ],
+   [
+    "am meisten",
+    "het meest"
+   ],
+   [
+    "warm",
+    "warm"
+   ],
+   [
+    "wärmer",
+    "warmer"
+   ],
+   [
+    "am wärmsten",
+    "het warmst"
+   ]
+  ],
+  "4.1": [
+   [
+    "die Auswahl | die Auswahlen",
+    "de keuze"
+   ],
+   [
+    "benutzen",
+    "gebruiken"
+   ],
+   [
+    "deshalb",
+    "daarom"
+   ],
+   [
+    "das Ergebnis | die Ergebnisse",
+    "het resultaat"
+   ],
+   [
+    "gegen",
+    "tegen"
+   ],
+   [
+    "das Gemüse | die Gemüse",
+    "de groente"
+   ],
+   [
+    "genau",
+    "precies"
+   ],
+   [
+    "gespannt sein auf",
+    "nieuwsgierig zijn naar"
+   ],
+   [
+    "günstig",
+    "voordelig"
+   ],
+   [
+    "haltbar",
+    "houdbaar"
+   ],
+   [
+    "irgendwann",
+    "ergens"
+   ],
+   [
+    "die Karotte | die Karotten",
+    "de wortel"
+   ],
+   [
+    "die Kräuter",
+    "de kruiden"
+   ],
+   [
+    "der Laden | die Läden",
+    "de winkel"
+   ],
+   [
+    "der Mülleimer | die Mülleimer",
+    "de vuilnisbak"
+   ],
+   [
+    "die Nuss | die Nüsse",
+    "de noot"
+   ],
+   [
+    "das Obst",
+    "het fruit"
+   ],
+   [
+    "sondern",
+    "maar"
+   ],
+   [
+    "überrascht sein",
+    "verrast zijn"
+   ],
+   [
+    "die Umwelt",
+    "het milieu"
+   ],
+   [
+    "verschwenden",
+    "verspillen"
+   ],
+   [
+    "wegwerfen",
+    "weggooien"
+   ],
+   [
+    "zubereiten",
+    "bereiden"
+   ]
+  ]
+ },
+ "zinnen": {
+  "4.2": [
+   [
+    "Er hat am ersten Mai Geburtstag.",
+    "Hij is op 1 mei jarig."
+   ],
+   [
+    "Er kommt am fünften April.",
+    "Hij komt op 5 april."
+   ],
+   [
+    "ich habe am zehnten Oktober Geburtstag.",
+    "Ik ben op 10 oktober jarig."
+   ]
+  ],
+  "5": [],
+  "3": [
+   [
+    "Guten Abend. Haben Sie einen Tisch für zwei/drei/vier Personen?",
+    "Goedenavond. Heeft u een tafel voor twee/drie/vier personen?"
+   ],
+   [
+    "Entschuldigung, ist dieser Platz frei?",
+    "Sorry, is deze plaats vrij?"
+   ],
+   [
+    "Entschuldigung, können wir bestellen?",
+    "Pardon, kunnen we bestellen?"
+   ],
+   [
+    "Ich hätte gern eine Flasche Wasser / einen Saft / eine Tasse Kaffee / einen Becher Milch, bitte.",
+    "Ik zou graag een fles water / een sapje / een kop koffie / een beker melk hebben, alstublieft."
+   ],
+   [
+    "Gibt es auch vegetarische/vegane Vorspeisen und Hauptspeisen?",
+    "Zijn er ook vegetarische/veganistische voorgerechten en hoofdgerechten?"
+   ],
+   [
+    "Ich nehme als Vorspeise eine Suppe.",
+    "Ik neem als voorgerecht een soep."
+   ],
+   [
+    "Für mich bitte das Schnitzel / die Würstchen mit Pommes.",
+    "Voor mij alstublieft de schnitzel / de worstjes met friet."
+   ],
+   [
+    "Haben Sie für mich noch ein Messer / eine Gabel / einen Löffel / Besteck?",
+    "Heeft u voor mij nog een mes / een vork / een lepel / bestek?"
+   ],
+   [
+    "Guten Appetit!",
+    "Smakelijk eten!"
+   ],
+   [
+    "Die Rechnung, bitte. Können wir getrennt bezahlen?",
+    "De rekening, alstublieft. Kunnen we apart betalen?"
+   ],
+   [
+    "Ich möchte mit Karte / bar zahlen, bitte.",
+    "Ik wil graag pinnen / contant betalen, alstublieft."
+   ],
+   [
+    "Stimmt so.",
+    "Het is goed zo."
+   ],
+   [
+    "Können Sie vielleicht etwas langsamer sprechen?",
+    "Kunt u misschien iets langzamer spreken?"
+   ],
+   [
+    "Entschuldigung, ich verstehe Sie nicht.",
+    "Sorry, ik begrijp u niet."
+   ],
+   [
+    "Wie bitte? Können Sie das noch mal sagen?",
+    "Wat zegt u? Kunt u dat nog eens zeggen?"
+   ]
+  ],
+  "2": [],
+  "1.2": [
+   [
+    "Meine Pizza ist (genau) so groß wie deine Pizza.",
+    "Mijn pizza is (even) zo groot als jouw pizza."
+   ],
+   [
+    "Meine Pizza ist größer als deine Pizza.",
+    "Mijn pizza is groter dan jouw pizza."
+   ],
+   [
+    "Meine Pizza ist am größten.",
+    "Mijn pizza is het grootst."
+   ]
+  ],
+  "4.1": []
+ }
+}
