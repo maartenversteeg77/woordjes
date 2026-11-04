@@ -56,6 +56,12 @@ button { cursor: pointer; }
 .langs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
 .lang { border: none; background: none; border-radius: 9px; padding: 10px 4px; font-weight: 700; font-size: 0.95rem; color: var(--muted); min-height: 44px; overflow-wrap: anywhere; }
 .lang[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
+.help-link { background: none; border: none; padding: 6px 0; color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; font-size: 0.92rem; white-space: nowrap; }
+.help { background: var(--surface); border: 1px solid var(--line); border-left: 5px solid var(--accent); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.help h2 { margin: 0; font-size: 1.05rem; }
+.help ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.help p { margin: 0; }
+.help em { font-family: var(--font-latin); font-style: normal; font-weight: 600; }
 .top { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 h1 { margin: 0; font-size: 1.7rem; line-height: 1.1; letter-spacing: -0.01em; text-wrap: balance; }
 .sub { margin: 4px 0 0; color: var(--muted); font-size: 0.92rem; }
@@ -220,7 +226,7 @@ function scope() { var c = chosen(); return WORDS.filter(function (w) { return c
 function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
 
 var R = null;       // lopende ronde
-var showTrans = false, confirmReset = false, listOpen = false;
+var showHelp = false, showTrans = false, confirmReset = false, listOpen = false;
 var app = document.getElementById('app');
 
 function renderHome() {
@@ -232,7 +238,8 @@ function renderHome() {
   var h = '<nav class="langs" role="tablist" aria-label="Taal">' + langs.map(function (k) {
     return '<button class="lang" role="tab" data-a="lang" data-id="' + k + '" aria-selected="' + (k === S.lang) + '">' + esc(TALEN[k].naam) + '</button>';
   }).join('') + '</nav>';
-  h += '<header class="top"><div><h1>' + (hasZ() && S.mode === 'z' ? 'Zinnen' : 'Woordjes') + '</h1><p class="sub">' + esc(T.naam) + (T.bron ? ' · ' + esc(T.bron) : '') + '</p></div></header>';
+  h += '<header class="top"><div><h1>' + (hasZ() && S.mode === 'z' ? 'Zinnen' : 'Woordjes') + '</h1><p class="sub">' + esc(T.naam) + (T.bron ? ' · ' + esc(T.bron) : '') + '</p></div><button class="help-link" data-a="help" aria-expanded="' + showHelp + '">' + (showHelp ? 'Sluit uitleg' : 'Hoe werkt het?') + '</button></header>';
+  if (showHelp) h += helpHtml(T);
   if (!T.lijsten.length) {
     h += '<section class="panel"><p class="big">Nog geen woorden</p><p class="hint">Voor ' + esc(T.naam) + ' staan er nog geen woordenlijsten in. Zodra ze er zijn, verschijnen ze hier.</p></section>';
     app.innerHTML = h; return;
@@ -267,6 +274,26 @@ function renderHome() {
   else h += '<button class="link" data-a="reset">' + esc(TALEN[S.lang].naam) + ' opnieuw beginnen</button>';
   h += '</div>';
   app.innerHTML = h;
+}
+
+function helpHtml(T) {
+  var h = '<section class="help" aria-label="Uitleg"><h2>Zo werkt het</h2><ul>';
+  h += '<li><b>Woordjes:</b> je oefent in rondes van 10. Een woord gaat na je antwoord naar <b>Onbekend</b>, <b>Lastig</b>, <b>Verkeerd gespeld</b> of <b>Bekend</b>. Fout of "weet ik niet" brengt een woord altijd terug naar Onbekend.</li>';
+  h += '<li><b>Zinnen vertalen:</b> je typt je vertaling en ziet daarna het modelantwoord. Je kiest zelf of je hem goed had. Andere woorden mogen, als de betekenis klopt.</li>';
+  h += '<li><b>' + (T.eenheid ? 'Lektionen' : 'Hoofdstukken') + ':</b> klik er één of meer aan om alleen die te oefenen, bijvoorbeeld voor een toets.</li>';
+  h += '<li>Meerdere vertalingen mogen, en je hoeft niet alle betekenissen te geven: één goede is genoeg.</li>';
+  h += '</ul>';
+  if (T.richting) {
+    h += '<p><b>Bij ' + esc(T.naam) + '</b></p><ul>';
+    h += '<li>Je kunt twee kanten op oefenen: <b>' + esc(T.naam) + ' → Nederlands</b> en <b>Nederlands → ' + esc(T.naam) + '</b>. Elke richting houdt zijn eigen voortgang bij.</li>';
+    h += '<li>Typ bij een zelfstandig naamwoord het lidwoord erbij: <em>die Gurke</em>, niet alleen <em>Gurke</em>. Zonder lidwoord komt het woord bij Verkeerd gespeld. Het meervoud hoeft niet.</li>';
+    h += '<li>Umlauts tellen mee: <em>kalter</em> in plaats van <em>kälter</em> is verkeerd gespeld. Geen umlaut op je toetsenbord? Typ <em>ae</em>, <em>oe</em>, <em>ue</em> of <em>ss</em>: <em>kaelter</em> en <em>dreissigste</em> zijn goed.</li>';
+    h += '<li>Hoofdletters maken niet uit.</li></ul>';
+  } else {
+    h += '<p><b>Bij ' + esc(T.naam) + '</b></p><ul><li>Je vertaalt van ' + esc(T.naam) + ' naar het Nederlands. Bij werkwoorden mag je "hij/zij/het" weglaten: <em>ontvangt</em> is goed.</li><li>Een kleine typfout telt als Verkeerd gespeld, niet als fout.</li></ul>';
+  }
+  h += '<p class="hint">Je voortgang wordt bewaard in deze browser. Op een ander apparaat begin je opnieuw.</p></section>';
+  return h;
 }
 
 function renderAsk() {
@@ -453,6 +480,7 @@ app.addEventListener('click', function (e) {
   var b = e.target.closest('[data-a]'); if (!b) return;
   var a = b.getAttribute('data-a');
   if (a === 'lang') { S.lang = b.getAttribute('data-id'); listOpen = false; save(); build(); renderHome(); }
+  else if (a === 'help') { showHelp = !showHelp; renderHome(); }
   else if (a === 'dir') { S.dir[S.lang] = b.getAttribute('data-id'); listOpen = false; save(); build(); renderHome(); }
   else if (a === 'mode') { S.mode = b.getAttribute('data-id'); confirmReset = false; save(); renderHome(); }
   else if (a === 'ztab') { S.ztab = b.getAttribute('data-k'); save(); renderHome(); }
