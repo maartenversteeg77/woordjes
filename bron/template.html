@@ -3,6 +3,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&family=Spectral:ital,wght@0,500;0,600;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gentium+Plus:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
 /* Layout: één smalle kolom. Boven de taal en hoofdstukken, dan vier lijsten als tabbladen, daaronder de oefenknop.
    Oefenen vervangt de kolom door één kaart per woord. */
@@ -20,6 +21,7 @@
   --s: #0b7a87; --s-bg: #dcf2f4;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-latin: "Spectral", Georgia, "Times New Roman", serif;
+  --font-greek: "Gentium Plus", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -53,7 +55,7 @@ button, input, select { font: inherit; color: inherit; }
 button { cursor: pointer; }
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 #app { max-width: 620px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
-.langs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
+.langs { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
 .lang { border: none; background: none; border-radius: 9px; padding: 10px 4px; font-weight: 700; font-size: 0.95rem; color: var(--muted); min-height: 44px; overflow-wrap: anywhere; }
 .lang[aria-selected="true"] { background: var(--accent); color: var(--on-accent); }
 .help-link { background: none; border: none; padding: 6px 0; color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; font-size: 0.92rem; white-space: nowrap; }
@@ -140,8 +142,8 @@ summary { cursor: pointer; font-weight: 600; }
 .pill.k-b { --c: var(--b); --cbg: var(--b-bg); } .pill.k-l { --c: var(--l); --cbg: var(--l-bg); }
 .pill.k-s { --c: var(--s); --cbg: var(--s-bg); } .pill.k-o { --c: var(--o); --cbg: var(--o-bg); }
 /* zinnen */
-.modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
-.mode { border: none; background: none; border-radius: 9px; padding: 9px 4px; font-weight: 700; color: var(--muted); min-height: 42px; }
+.modes { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4px; }
+.mode { border: none; background: none; border-radius: 9px; padding: 9px 4px; font-weight: 700; color: var(--muted); min-height: 42px; font-size: 0.92rem; overflow-wrap: anywhere; }
 .mode[aria-selected="true"] { background: var(--fg); color: var(--bg); }
 .zin { font-family: var(--font-latin); font-weight: 600; font-size: clamp(1.35rem, 5.5vw, 1.7rem); line-height: 1.3; margin: 0; overflow-wrap: anywhere; text-wrap: pretty; }
 textarea.ans { resize: vertical; min-height: 92px; line-height: 1.4; }
@@ -151,6 +153,16 @@ textarea.ans { resize: vertical; min-height: 92px; line-height: 1.4; }
 .cmp p { margin: 2px 0 0; overflow-wrap: anywhere; }
 .cmp .label { margin: 0; }
 .res .zl { font-family: var(--font-latin); font-weight: 600; overflow-wrap: anywhere; }
+[lang="grc"], .grc { font-family: var(--font-greek); }
+.term[lang="grc"], .zin[lang="grc"] { font-weight: 700; }
+.opts { display: grid; gap: 8px; }
+.opt { text-align: left; background: var(--bg); border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; font-weight: 600; font-size: 1.1rem; min-height: 48px; }
+.opt.grc { font-size: 1.3rem; }
+.opt[disabled] { cursor: default; opacity: 1; }
+.opt.good { border-color: var(--b); background: var(--b-bg); color: var(--b); }
+.opt.bad { border-color: var(--o); background: var(--o-bg); color: var(--o); }
+.blank { display: inline-block; min-width: 3.5em; border-bottom: 2px solid var(--accent); }
+.why { color: var(--muted); font-size: 0.92rem; }
 @media (prefers-reduced-motion: no-preference) { .fill { transition: width 0.25s ease; } }
 </style>
 
@@ -179,7 +191,8 @@ if (!S.lang || !TALEN[S.lang]) S.lang = Object.keys(TALEN)[0];
 S.sel = S.sel || {}; S.p = S.p || {};
 if (!CAT[S.tab]) S.tab = 'o';
 S.dir = S.dir || {};
-S.z = S.z || {}; if (S.mode !== 'z') S.mode = 'w'; if (S.ztab !== 'b') S.ztab = 'o';
+S.z = S.z || {}; S.n = S.n || {}; if (S.mode !== 'z' && S.mode !== 'n') S.mode = 'w'; if (S.ztab !== 'b') S.ztab = 'o'; if (S.ntab !== 'b') S.ntab = 'o';
+var NROUND = 10;
 var ZROUND = 5;
 var ZCATS = [
   { k: 'o', n: 'Nog oefenen', hint: 'Zinnen die je nog niet hebt vertaald, of die nog niet goed gingen.' },
@@ -193,6 +206,7 @@ function eenh() { return TALEN[S.lang].eenheid || 'Hoofdstuk'; }
 function build() {
   var T = TALEN[S.lang], R2 = rev(), pre = S.lang + (R2 ? '|nd' : '');
   WORDS = []; BY = {}; VC = {}; ZS = []; ZBY = {};
+  nBuild();
   (T.zinnen || []).forEach(function (l) {
     l.zinnen.forEach(function (z, i) {
       var o = { id: pre + '|zin|' + l.id + '|' + (i + 1), lat: R2 ? z[1] : z[0], nl: R2 ? z[0] : z[1], ch: l.id, chn: l.naam };
@@ -220,6 +234,7 @@ function chosen() {
   return sel.filter(function (x) { return all.indexOf(x) >= 0; });
 }
 function hasZ() { var T = TALEN[S.lang]; return !!(T.zinnen && T.zinnen.length); }
+function hasN() { return !!TALEN[S.lang].naamvallen; }
 function zcat(id) { return S.z[id] === 'b' ? 'b' : 'o'; }
 function zscope() { var c = chosen(); return ZS.filter(function (z) { return c.indexOf(z.ch) >= 0; }); }
 function scope() { var c = chosen(); return WORDS.filter(function (w) { return c.indexOf(w.ch) >= 0; }); }
@@ -238,19 +253,25 @@ function renderHome() {
   var h = '<nav class="langs" role="tablist" aria-label="Taal">' + langs.map(function (k) {
     return '<button class="lang" role="tab" data-a="lang" data-id="' + k + '" aria-selected="' + (k === S.lang) + '">' + esc(TALEN[k].naam) + '</button>';
   }).join('') + '</nav>';
-  h += '<header class="top"><div><h1>' + (hasZ() && S.mode === 'z' ? 'Zinnen' : 'Woordjes') + '</h1><p class="sub">' + esc(T.naam) + (T.bron ? ' · ' + esc(T.bron) : '') + '</p></div><button class="help-link" data-a="help" aria-expanded="' + showHelp + '">' + (showHelp ? 'Sluit uitleg' : 'Hoe werkt het?') + '</button></header>';
+  h += '<header class="top"><div><h1>' + (hasZ() && S.mode === 'z' ? 'Zinnen' : hasN() && S.mode === 'n' ? 'Naamvallen' : 'Woordjes') + '</h1><p class="sub">' + esc(T.naam) + (T.bron ? ' · ' + esc(T.bron) : '') + '</p></div><button class="help-link" data-a="help" aria-expanded="' + showHelp + '">' + (showHelp ? 'Sluit uitleg' : 'Hoe werkt het?') + '</button></header>';
   if (showHelp) h += helpHtml(T);
   if (!T.lijsten.length) {
     h += '<section class="panel"><p class="big">Nog geen woorden</p><p class="hint">Voor ' + esc(T.naam) + ' staan er nog geen woordenlijsten in. Zodra ze er zijn, verschijnen ze hier.</p></section>';
     app.innerHTML = h; return;
   }
-  var zmode = hasZ() && S.mode === 'z';
-  if (hasZ()) h += '<nav class="modes" role="tablist" aria-label="Oefening"><button class="mode" role="tab" data-a="mode" data-id="w" aria-selected="' + !zmode + '">Woordjes</button><button class="mode" role="tab" data-a="mode" data-id="z" aria-selected="' + zmode + '">Zinnen vertalen</button></nav>';
+  var zmode = hasZ() && S.mode === 'z', nmode = hasN() && S.mode === 'n';
+  if (hasZ() || hasN()) {
+    h += '<nav class="modes" role="tablist" aria-label="Oefening"><button class="mode" role="tab" data-a="mode" data-id="w" aria-selected="' + !(zmode || nmode) + '">Woordjes</button>';
+    if (hasZ()) h += '<button class="mode" role="tab" data-a="mode" data-id="z" aria-selected="' + zmode + '">Zinnen vertalen</button>';
+    if (hasN()) h += '<button class="mode" role="tab" data-a="mode" data-id="n" aria-selected="' + nmode + '">Naamvallen</button>';
+    h += '</nav>';
+  }
+  if (nmode) { app.innerHTML = h + nHome(); return; }
   if (T.richting) {
     var vn = T.naam, nd = rev();
     h += '<nav class="modes" role="tablist" aria-label="Richting"><button class="mode" role="tab" data-a="dir" data-id="dn" aria-selected="' + !nd + '">' + esc(vn) + ' → Nederlands</button><button class="mode" role="tab" data-a="dir" data-id="nd" aria-selected="' + nd + '">Nederlands → ' + esc(vn) + '</button></nav>';
   }
-  h += '<section><p class="label">' + (T.eenheid ? 'Lektionen' : 'Hoofdstukken') + '</p><div class="chips">';
+  h += '<section><p class="label">' + (T.eenheden || 'Hoofdstukken') + '</p><div class="chips">';
   h += '<button class="chip all" data-a="all" aria-pressed="' + allSel + '">Alles</button>';
   T.lijsten.forEach(function (l) { h += '<button class="chip" data-a="ch" data-id="' + l.id + '" aria-pressed="' + (ch.indexOf(l.id) >= 0 && !allSel) + '">' + esc(l.naam) + '</button>'; });
   h += '</div></section>';
@@ -267,7 +288,7 @@ function renderHome() {
   h += '<label class="check"><input type="checkbox" id="showtr"' + (showTrans ? ' checked' : '') + '> Toon de vertalingen</label>';
   h += '<ul class="words">' + inTab.map(function (w) {
     var opts = CATS.map(function (c) { return '<option value="' + c.k + '"' + (c.k === S.tab ? ' selected' : '') + '>' + (c.k === S.tab ? c.n : 'Naar ' + c.n) + '</option>'; }).join('');
-    return '<li><div class="wtxt"><span class="lat">' + esc(w.term) + ' <span class="ch">' + esc(w.chn) + '</span></span>' + (showTrans ? '<span class="nl">' + esc(w.nl) + '</span>' : '') + '</div><select class="move" data-id="' + esc(w.id) + '" aria-label="Verplaats ' + esc(w.term) + '">' + opts + '</select></li>';
+    return '<li><div class="wtxt"><span class="lat" lang="' + (rev() ? 'nl' : TALEN[S.lang].code || 'la') + '">' + esc(w.term) + ' <span class="ch">' + esc(w.chn) + '</span></span>' + (showTrans ? '<span class="nl">' + esc(w.nl) + '</span>' : '') + '</div><select class="move" data-id="' + esc(w.id) + '" aria-label="Verplaats ' + esc(w.term) + '">' + opts + '</select></li>';
   }).join('') + '</ul></details></section>';
   h += '<div class="foot">';
   if (confirmReset) h += '<span>Voortgang van deze woordjes wissen? Andere talen blijven staan.</span><button class="btn" data-a="reset-yes">Ja, wis</button><button class="btn" data-a="reset-no">Nee</button>';
@@ -280,7 +301,7 @@ function helpHtml(T) {
   var h = '<section class="help" aria-label="Uitleg"><h2>Zo werkt het</h2><ul>';
   h += '<li><b>Woordjes:</b> je oefent in rondes van 10. Een woord gaat na je antwoord naar <b>Onbekend</b>, <b>Lastig</b>, <b>Verkeerd gespeld</b> of <b>Bekend</b>. Fout of "weet ik niet" brengt een woord altijd terug naar Onbekend.</li>';
   h += '<li><b>Zinnen vertalen:</b> je typt je vertaling en ziet daarna het modelantwoord. Je kiest zelf of je hem goed had. Andere woorden mogen, als de betekenis klopt.</li>';
-  h += '<li><b>' + (T.eenheid ? 'Lektionen' : 'Hoofdstukken') + ':</b> klik er één of meer aan om alleen die te oefenen, bijvoorbeeld voor een toets.</li>';
+  h += '<li><b>' + (T.eenheden || 'Hoofdstukken') + ':</b> klik er één of meer aan om alleen die te oefenen, bijvoorbeeld voor een toets.</li>';
   h += '<li>Meerdere vertalingen mogen, en je hoeft niet alle betekenissen te geven: één goede is genoeg.</li>';
   h += '</ul>';
   if (T.richting) {
@@ -290,7 +311,9 @@ function helpHtml(T) {
     h += '<li>Umlauts tellen mee: <em>kalter</em> in plaats van <em>kälter</em> is verkeerd gespeld. Geen umlaut op je toetsenbord? Typ <em>ae</em>, <em>oe</em>, <em>ue</em> of <em>ss</em>: <em>kaelter</em> en <em>dreissigste</em> zijn goed.</li>';
     h += '<li>Hoofdletters maken niet uit.</li></ul>';
   } else {
-    h += '<p><b>Bij ' + esc(T.naam) + '</b></p><ul><li>Je vertaalt van ' + esc(T.naam) + ' naar het Nederlands. Bij werkwoorden mag je "hij/zij/het" weglaten: <em>ontvangt</em> is goed.</li><li>Een kleine typfout telt als Verkeerd gespeld, niet als fout.</li></ul>';
+    h += '<p><b>Bij ' + esc(T.naam) + '</b></p><ul><li>Je vertaalt van ' + esc(T.naam) + ' naar het Nederlands. Bij werkwoorden mag je "hij/zij/het" weglaten: <em>' + (T.naamvallen ? 'heeft' : 'ontvangt') + '</em> is goed.</li><li>Een kleine typfout telt als Verkeerd gespeld, niet als fout.</li>';
+    if (T.naamvallen) h += '<li><b>Naamvallen:</b> je hoeft geen Grieks te typen. Je kiest de juiste vorm uit het rijtje, herkent een vorm, of vult de goede vorm in een zin in. Er zijn drie soorten vragen door elkaar. Deze oefening gaat over heel les 3, de teksten die je aanklikt tellen hier niet.</li>';
+    h += '</ul>';
   }
   h += '<p class="hint">Je voortgang wordt bewaard in deze browser. Op een ander apparaat begin je opnieuw.</p></section>';
   return h;
@@ -313,7 +336,7 @@ function renderResult() {
   var w = BY[R.queue[R.i]], r = R.last;
   var pct = Math.round((R.i + 1) / R.queue.length * 100);
   var h = '<div class="bar"><button class="btn" data-a="stop">Stop</button><div class="track"><div class="fill" style="width:' + pct + '%"></div></div><span class="count">' + (R.i + 1) + ' van ' + R.queue.length + '</span></div>';
-  h += '<div class="card"><p class="term" lang="la">' + esc(w.term) + '</p>';
+  h += '<div class="card"><p class="term" lang="' + (rev() ? 'nl' : TALEN[S.lang].code || 'la') + '">' + esc(w.term) + '</p>';
   h += '<div class="fb k-' + r.to + '" aria-live="polite">';
   if (r.r === 'exact') h += '<strong>Goed!</strong><p>' + esc(w.nl) + '</p>';
   else if (r.r === 'spelling') h += '<strong>Bijna goed, let op de spelling</strong><p>Je schreef: <b>' + esc(r.typed) + '</b></p><p>Goed gespeld: <b>' + esc(r.best) + '</b></p><p class="dest">Volledig antwoord: ' + esc(w.nl) + '</p>';
@@ -336,7 +359,7 @@ function renderSummary() {
   h += '</div><ul class="res">';
   R.res.forEach(function (x) {
     var w = BY[x.id];
-    h += '<li><span class="lat">' + esc(w.term) + '</span><span class="pill k-' + x.to + '">' + esc(CAT[x.to].n) + '</span><span class="nl">' + esc(w.nl) + '</span></li>';
+    h += '<li><span class="lat" lang="' + (rev() ? 'nl' : TALEN[S.lang].code || 'la') + '">' + esc(w.term) + '</span><span class="pill k-' + x.to + '">' + esc(CAT[x.to].n) + '</span><span class="nl">' + esc(w.nl) + '</span></li>';
   });
   h += '</ul><div class="row">';
   h += '<button class="btn primary" data-a="again"' + (left ? '' : ' disabled') + '>' + (left ? 'Nog ' + Math.min(ROUND, left) + ' woorden uit ' + esc(CAT[R.from].n) : 'Deze lijst is leeg') + '</button>';
@@ -382,7 +405,7 @@ function zAsk() {
 function zResult() {
   var z = ZBY[R.queue[R.i]], r = R.last;
   var h = zBar(R.i + 1);
-  h += '<div class="card"><p class="zin" lang="la">' + esc(z.lat) + '</p><div class="cmp">';
+  h += '<div class="card"><p class="zin" lang="' + (rev() ? 'nl' : TALEN[S.lang].code || 'la') + '">' + esc(z.lat) + '</p><div class="cmp">';
   if (r.typed) h += '<div><p class="label">Jouw vertaling</p><p>' + esc(r.typed) + '</p></div>';
   h += '<div class="model"><p class="label">Modelantwoord</p><p>' + esc(z.nl) + '</p></div></div>';
   if (r.to) {
@@ -408,7 +431,7 @@ function zSummary() {
   h += '<section class="panel"><p class="big">' + good + ' van ' + R.res.length + ' goed</p><ul class="res">';
   R.res.forEach(function (x) {
     var z = ZBY[x.id];
-    h += '<li><span class="zl" lang="la">' + esc(z.lat) + '</span><span class="pill k-' + x.to + '">' + esc(ZCAT[x.to].n) + '</span><span class="nl">' + esc(z.nl) + '</span></li>';
+    h += '<li><span class="zl" lang="' + (rev() ? 'nl' : TALEN[S.lang].code || 'la') + '">' + esc(z.lat) + '</span><span class="pill k-' + x.to + '">' + esc(ZCAT[x.to].n) + '</span><span class="nl">' + esc(z.nl) + '</span></li>';
   });
   h += '</ul><div class="row">';
   h += '<button class="btn primary" data-a="zagain"' + (left ? '' : ' disabled') + '>' + (left ? 'Nog ' + Math.min(ZROUND, left) + ' zinnen uit ' + esc(ZCAT[R.from].n) : 'Deze lijst is leeg') + '</button>';
@@ -423,8 +446,126 @@ function zStart(tab) {
   render();
 }
 
+/* naamvallen (Grieks): meerkeuze, automatisch nagekeken */
+var NS = [], NBY = {};
+function nBuild() {
+  NS = []; NBY = {};
+  var N = TALEN[S.lang].naamvallen; if (!N) return;
+  var pre = S.lang + '|n|';
+  N.woorden.forEach(function (w, wi) {
+    var seen = {};
+    w.v.forEach(function (f, fi) {
+      // herken: welke vorm is dit? (bij gelijke vormen, zoals onzijdig nom/acc, tellen alle passende labels)
+      if (!seen[f]) {
+        seen[f] = true;
+        var ok = []; w.v.forEach(function (g, gi) { if (g === f) ok.push(gi); });
+        NS.push({ id: pre + 'h|' + wi + '|' + fi, t: 'h', w: w, fi: fi, ok: ok });
+      }
+      // maak: geef de vorm
+      NS.push({ id: pre + 'm|' + wi + '|' + fi, t: 'm', w: w, fi: fi });
+    });
+  });
+  N.zinnen.forEach(function (z, i) { NS.push({ id: pre + 'z|' + i, t: 'z', z: z }); });
+  NS.forEach(function (q) { NBY[q.id] = q; });
+}
+function ncat(id) { return S.n[id] === 'b' ? 'b' : 'o'; }
+function uniq(a) { var o = [], s = {}; a.forEach(function (x) { if (!s[x]) { s[x] = true; o.push(x); } }); return o; }
+function nOptions(q) {
+  var N = TALEN[S.lang].naamvallen;
+  if (q.t === 'h') return N.vormen.map(function (v, i) { return { id: i, txt: v, grc: false }; });
+  if (q.t === 'm') return shuffle(uniq(q.w.v)).map(function (f, i) { return { id: i, txt: f, grc: true }; });
+  return q.z[1].map(function (f, i) { return { id: i, txt: f, grc: true }; });
+}
+function nCorrect(q, opts, id) {
+  if (id < 0) return false;
+  if (q.t === 'h') return q.ok.indexOf(id) >= 0;
+  if (q.t === 'm') return opts[id].txt === q.w.v[q.fi];
+  return id === q.z[2];
+}
+function nHome() {
+  var N = TALEN[S.lang].naamvallen, counts = { o: 0, b: 0 };
+  NS.forEach(function (q) { counts[ncat(q.id)]++; });
+  var inTab = NS.filter(function (q) { return ncat(q.id) === S.ntab; });
+  var h = '<div class="tabs" role="tablist" aria-label="Lijsten" style="grid-template-columns:repeat(2,minmax(0,1fr))">';
+  ZCATS.forEach(function (c) {
+    h += '<button class="tab" role="tab" data-a="ntab" data-k="' + c.k + '" aria-selected="' + (S.ntab === c.k) + '"><span class="n">' + counts[c.k] + '</span><span class="t">' + c.n + '</span></button>';
+  });
+  h += '</div><section class="panel" role="tabpanel"><p class="hint">' + esc(N.uitleg) + '</p>';
+  var n = Math.min(NROUND, inTab.length);
+  h += '<div class="row"><button class="btn primary" data-a="ngo"' + (n ? '' : ' disabled') + '>' + (n ? 'Oefen ' + n + (n === 1 ? ' vraag' : ' vragen') : 'Geen vragen in deze lijst') + '</button></div>';
+  h += '<p class="hint">Drie soorten vragen door elkaar: welke vorm is dit, maak de vorm, en vul de juiste vorm in een zin in. Je kiest steeds uit een paar antwoorden.</p>';
+  h += '<details><summary>Het rijtje</summary><ul class="words">' + N.woorden.map(function (w) {
+    return '<li><div class="wtxt"><span class="lat" lang="grc">' + esc(w.w) + ' <span class="ch">' + esc(w.nl) + '</span></span><span class="nl" lang="grc">' + w.v.map(esc).join(' · ') + '</span></div></li>';
+  }).join('') + '</ul></details></section>';
+  h += '<div class="foot">';
+  if (confirmReset) h += '<span>Voortgang van de naamvallen wissen? Woordjes en zinnen blijven staan.</span><button class="btn" data-a="reset-yes">Ja, wis</button><button class="btn" data-a="reset-no">Nee</button>';
+  else h += '<button class="link" data-a="reset">Naamvallen opnieuw beginnen</button>';
+  return h + '</div>';
+}
+function nQuestion(q) {
+  var N = TALEN[S.lang].naamvallen;
+  if (q.t === 'h') return '<p class="ask">Welke vorm is dit?</p><p class="term" lang="grc">' + esc(q.w.v[q.fi]) + '</p><p class="hint">van <span lang="grc">' + esc(q.w.w) + '</span> (' + esc(q.w.nl) + ')</p>';
+  if (q.t === 'm') return '<p class="ask">Geef de <b>' + esc(N.vormen[q.fi]) + '</b> van</p><p class="term" lang="grc">' + esc(q.w.w) + '</p><p class="hint">' + esc(q.w.nl) + '</p>';
+  return '<p class="ask">Vul de juiste vorm in</p><p class="zin" lang="grc">' + esc(q.z[0]).replace('___', '<span class="blank">&nbsp;</span>') + '</p>';
+}
+function nAsk() {
+  var q = NBY[R.queue[R.i]];
+  R.opts = nOptions(q);
+  var h = zBar(R.i);
+  h += '<div class="card"><div><span class="from">Uit ' + esc(ZCAT[R.from].n) + ' · naamvallen</span></div>' + nQuestion(q);
+  h += '<div class="opts">' + R.opts.map(function (o) { return '<button class="opt' + (o.grc ? ' grc' : '') + '" data-a="nopt" data-id="' + o.id + '"' + (o.grc ? ' lang="grc"' : '') + '>' + esc(o.txt) + '</button>'; }).join('') + '</div>';
+  h += '<div class="row"><button class="btn" type="button" data-a="nskip">Weet ik niet</button></div></div>';
+  app.innerHTML = h;
+  var first = app.querySelector('.opt'); if (first) first.focus();
+}
+function nAnswer(id) {
+  var q = NBY[R.queue[R.i]];
+  var good = nCorrect(q, R.opts, id);
+  var to = good ? 'b' : 'o';
+  S.n[q.id] = to; save();
+  R.last = { id: q.id, to: to, picked: id, skipped: id < 0 };
+  R.res.push(R.last); R.phase = 'result'; render();
+}
+function nResult() {
+  var q = NBY[R.queue[R.i]], r = R.last;
+  var h = zBar(R.i + 1);
+  h += '<div class="card">' + nQuestion(q);
+  h += '<div class="opts">' + R.opts.map(function (o) {
+    var ok = nCorrect(q, R.opts, o.id), cls = ok ? ' good' : (o.id === r.picked ? ' bad' : '');
+    return '<button class="opt' + (o.grc ? ' grc' : '') + cls + '" disabled' + (o.grc ? ' lang="grc"' : '') + '>' + esc(o.txt) + (ok ? ' ✓' : o.id === r.picked ? ' ✗' : '') + '</button>';
+  }).join('') + '</div>';
+  h += '<div class="fb k-' + r.to + '" aria-live="polite"><strong>' + (r.to === 'b' ? 'Goed!' : r.skipped ? 'Dat wist je nog niet' : 'Niet goed') + '</strong>';
+  if (q.t === 'z') h += '<p>' + esc(q.z[3]) + '</p><p class="why">' + esc(q.z[4]) + '</p>';
+  else if (q.t === 'h') h += '<p class="why">Hele rijtje van <span lang="grc">' + esc(q.w.w) + '</span>: <span lang="grc">' + q.w.v.map(esc).join(' · ') + '</span></p>';
+  else h += '<p class="why">Rijtje: <span lang="grc">' + q.w.v.map(esc).join(' · ') + '</span></p>';
+  h += '<p class="dest">Deze vraag gaat naar ' + esc(ZCAT[r.to].n) + '.</p></div>';
+  h += '<button class="btn primary" id="next" data-a="nnext">' + (R.i + 1 < R.queue.length ? 'Volgende' : 'Bekijk je resultaat') + '</button></div>';
+  app.innerHTML = h;
+  document.getElementById('next').focus();
+}
+function nLabel(q) { var N = TALEN[S.lang].naamvallen; return q.t === 'h' ? q.w.v[q.fi] + ' — welke vorm?' : q.t === 'm' ? q.w.w + ' — ' + N.vormen[q.fi] : q.z[0]; }
+function nSummary() {
+  var good = R.res.filter(function (x) { return x.to === 'b'; }).length;
+  var left = NS.filter(function (q) { return ncat(q.id) === R.from; }).length;
+  var h = '<header class="top"><div><h1>Klaar</h1><p class="sub">Naamvallen uit ' + esc(ZCAT[R.from].n) + '</p></div></header>';
+  h += '<section class="panel"><p class="big">' + good + ' van ' + R.res.length + ' goed</p><ul class="res">';
+  R.res.forEach(function (x) { var q = NBY[x.id]; h += '<li><span class="zl" lang="grc">' + esc(nLabel(q)) + '</span><span class="pill k-' + x.to + '">' + esc(ZCAT[x.to].n) + '</span></li>'; });
+  h += '</ul><div class="row">';
+  h += '<button class="btn primary" data-a="nagain"' + (left ? '' : ' disabled') + '>' + (left ? 'Nog ' + Math.min(NROUND, left) + ' vragen uit ' + esc(ZCAT[R.from].n) : 'Deze lijst is leeg') + '</button>';
+  h += '<button class="btn" data-a="home">Terug naar de lijsten</button></div></section>';
+  app.innerHTML = h;
+  window.scrollTo(0, 0);
+}
+function nStart(tab) {
+  var pool = NS.filter(function (q) { return ncat(q.id) === tab; });
+  if (!pool.length) return;
+  R = { kind: 'n', queue: shuffle(pool).slice(0, NROUND).map(function (q) { return q.id; }), i: 0, res: [], phase: 'ask', from: tab, last: null, opts: [] };
+  render();
+}
+
 function render() {
   if (R && R.kind === 'z') return R.phase === 'ask' ? zAsk() : R.phase === 'result' ? zResult() : zSummary();
+  if (R && R.kind === 'n') return R.phase === 'ask' ? nAsk() : R.phase === 'result' ? nResult() : nSummary();
   if (!R) return renderHome();
   if (R.phase === 'ask') return renderAsk();
   if (R.phase === 'result') return renderResult();
@@ -484,6 +625,12 @@ app.addEventListener('click', function (e) {
   else if (a === 'dir') { S.dir[S.lang] = b.getAttribute('data-id'); listOpen = false; save(); build(); renderHome(); }
   else if (a === 'mode') { S.mode = b.getAttribute('data-id'); confirmReset = false; save(); renderHome(); }
   else if (a === 'ztab') { S.ztab = b.getAttribute('data-k'); save(); renderHome(); }
+  else if (a === 'ntab') { S.ntab = b.getAttribute('data-k'); save(); renderHome(); }
+  else if (a === 'ngo') nStart(S.ntab);
+  else if (a === 'nagain') nStart(R.from);
+  else if (a === 'nopt') nAnswer(parseInt(b.getAttribute('data-id'), 10));
+  else if (a === 'nskip') nAnswer(-1);
+  else if (a === 'nnext') { R.i++; R.phase = R.i >= R.queue.length ? 'summary' : 'ask'; render(); }
   else if (a === 'zgo') zStart(S.ztab);
   else if (a === 'zagain') zStart(R.from);
   else if (a === 'zskip') { R.last = { id: R.queue[R.i], typed: '', to: null, skipped: true }; R.phase = 'result'; zMark('o'); }
@@ -507,8 +654,9 @@ app.addEventListener('click', function (e) {
   else if (a === 'reset-no') { confirmReset = false; renderHome(); }
   else if (a === 'reset-yes') {
     // alleen de taal en richting die nu open staan
-    var ids = (hasZ() && S.mode === 'z') ? ZS.map(function (z) { return z.id; }) : WORDS.map(function (w) { return w.id; });
-    var box = (hasZ() && S.mode === 'z') ? S.z : S.p;
+    var nm = hasN() && S.mode === 'n';
+    var ids = nm ? NS.map(function (q) { return q.id; }) : (hasZ() && S.mode === 'z') ? ZS.map(function (z) { return z.id; }) : WORDS.map(function (w) { return w.id; });
+    var box = nm ? S.n : (hasZ() && S.mode === 'z') ? S.z : S.p;
     ids.forEach(function (id) { delete box[id]; }); confirmReset = false; save(); renderHome(); }
 });
 

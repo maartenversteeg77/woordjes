@@ -14,8 +14,12 @@ D=json.load(open(os.path.join(B,'duits.json'),encoding='utf8'))
 ko=lambda c:[int(x) for x in c.split('.')]
 DL=[{'id':c,'naam':c,'woorden':D['woorden'][c]} for c in sorted(D['woorden'],key=ko) if D['woorden'][c]]
 DZ=[{'id':c,'naam':c,'zinnen':D['zinnen'][c]} for c in sorted(D['zinnen'],key=ko) if D['zinnen'][c]]
+G=json.load(open(os.path.join(B,'grieks.json'),encoding='utf8'))
+GL=[{'id':c,'naam':c,'woorden':G['woorden'][c]} for c in sorted(G['woorden'])]
+GZ=[{'id':c,'naam':c,'zinnen':G['zinnen'][c]} for c in sorted(G['zinnen'])]
 data={'latijn':{'naam':'Latijn','bron':'Minerva deel 1, 1/2/3 vwo','lijsten':lijsten,'zinnen':zinnen,'voorrang':['2.A|'+w[0] for w in EXTRA.get('2.A',[])]},
-      'duits':{'naam':'Duits','bron':'Na Klar! 1/2 vwo, 5e editie · Kapitel 4: Wien','code':'de','eenheid':'Lektion','richting':True,'lijsten':DL,'zinnen':DZ},'frans':{'naam':'Frans','bron':'','lijsten':[]},'engels':{'naam':'Engels','bron':'','lijsten':[]}}
+      'grieks':{'naam':'Grieks','bron':G['bron'],'code':'grc','eenheid':'Tekst','eenheden':'Teksten','lijsten':GL,'zinnen':GZ,'naamvallen':G['naamvallen']},
+      'duits':{'naam':'Duits','bron':'Na Klar! 1/2 vwo, 5e editie · Kapitel 4: Wien','code':'de','eenheid':'Lektion','eenheden':'Lektionen','richting':True,'lijsten':DL,'zinnen':DZ},'frans':{'naam':'Frans','bron':'','lijsten':[]},'engels':{'naam':'Engels','bron':'','lijsten':[]}}
 t=open(os.path.join(B,'template.html'),encoding='utf8').read()
 t=t.replace('/*DATA*/',json.dumps(data,ensure_ascii=False)).replace('/*MATCH*/',open(os.path.join(B,'match.js'),encoding='utf8').read())
 t=t.replace("esc(w.chn) + '</span></div>'","eenh() + ' ' + esc(w.chn) + '</span></div>'",1)

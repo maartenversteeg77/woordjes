@@ -1,0 +1,103 @@
+{
+  "bron": "Les 3 · Herakles",
+  "woorden": {
+    "3A": [
+      ["οὐ, οὐκ, οὐχ", "niet"],
+      ["ἐστί(ν)", "(hij/zij/het) is"],
+      ["ὁ ἄνθρωπος", "(1.) mens / (2.) man"],
+      ["ὁ θεός", "god"],
+      ["εἰσί(ν)", "(zij) zijn"],
+      ["ὁ δοῦλος", "slaaf / tot slaaf gemaakte"],
+      ["τί …;", "waarom?"],
+      ["ἔχει", "(hij/zij/het) heeft"],
+      ["ἔχουσι(ν)", "(zij) hebben"],
+      ["ἡ χώρα", "land / streek"],
+      ["οἰκεῖ", "(hij/zij/het) woont / bewoont"],
+      ["ὁ φόβος", "angst / vrees"],
+      ["δέ, δ’", "(1.) en / (2.) maar"]
+    ],
+    "3B": [
+      ["φέρει", "(1.) (hij/zij/het) draagt / (2.) (hij/zij/het) brengt"],
+      ["τὸ θηρίον (mv. τὰ θηρία)", "wild dier / beest"],
+      ["βαίνει", "(hij/zij/het) gaat"],
+      ["πρός (+ acc.)", "naar / naartoe / tot"],
+      ["ἀλλά, ἀλλ’", "maar"],
+      ["οὕτως, οὕτω", "zo / op die manier"]
+    ],
+    "3C": [
+      ["φεύγει (+ acc.)", "(hij/zij/het) vlucht (voor)"],
+      ["ἡ μάχη", "gevecht / strijd"],
+      ["νῦν", "nu"],
+      ["εἰς (+ acc.)", "naar / naar binnen / tot"],
+      ["καί", "(1.) en / (2.) ook / (3.) zelfs"],
+      ["λαμβάνει", "(hij/zij/het) neemt / pakt (vast)"],
+      ["τοῦτο", "dit / dat"],
+      ["ποιεῖ", "(1.) (hij/zij/het) doet / (2.) (hij/zij/het) maakt"],
+      ["ὁ δεσπότης", "heerser / meester"],
+      ["γάρ", "want"]
+    ]
+  },
+  "zinnen": {
+    "3A": [
+      ["Ὁ Ἡρακλῆς δοῦλός ἐστιν.", "Herakles is een slaaf."],
+      ["Ὁ Εὐρυσθεὺς θεὸς οὐκ ἔστιν.", "Eurystheus is geen god."],
+      ["Οἱ θεοὶ φόβον οὐκ ἔχουσιν.", "De goden hebben geen angst."],
+      ["Ὁ θεὸς τὴν χώραν ἔχει.", "De god heeft het land."],
+      ["Τί ὁ Ἡρακλῆς δοῦλός ἐστιν;", "Waarom is Herakles een slaaf?"],
+      ["Ὁ Εὐρυσθεὺς τὴν χώραν οἰκεῖ.", "Eurystheus bewoont de streek."],
+      ["Οἱ ἄνθρωποι φόβον ἔχουσιν, οἱ δὲ θεοὶ οὐκ ἔχουσιν.", "De mensen hebben angst, maar de goden (hebben die) niet."],
+      ["Ὁ Ἡρακλῆς ἄνθρωπός ἐστιν, οὐ θεός.", "Herakles is een mens, geen god."]
+    ],
+    "3B": [
+      ["Ὁ Ἡρακλῆς πρὸς τὸ θηρίον βαίνει.", "Herakles gaat naar het wilde dier."],
+      ["Τὸ θηρίον φόβον φέρει.", "Het beest brengt angst."],
+      ["Οἱ ἄνθρωποι φόβον ἔχουσιν, ἀλλ’ ὁ Ἡρακλῆς οὐκ ἔχει.", "De mensen hebben angst, maar Herakles (heeft die) niet."],
+      ["Ὁ δοῦλος πρὸς τὸν θεὸν βαίνει.", "De slaaf gaat naar de god."],
+      ["Οὕτως ὁ Ἡρακλῆς τὸ θηρίον φέρει.", "Zo draagt Herakles het beest."],
+      ["Τὸ θηρίον τὴν χώραν οἰκεῖ.", "Het beest bewoont de streek."],
+      ["Ὁ θεὸς τὸν δοῦλον πρὸς τὴν χώραν φέρει.", "De god brengt de slaaf naar het land."]
+    ],
+    "3C": [
+      ["Ὁ Ἡρακλῆς νῦν εἰς τὴν μάχην βαίνει.", "Herakles gaat nu het gevecht in."],
+      ["Τὸ θηρίον οὐ φεύγει.", "Het beest vlucht niet."],
+      ["Ὁ Ἡρακλῆς τὸ θηρίον λαμβάνει.", "Herakles pakt het beest (vast)."],
+      ["Ὁ Εὐρυσθεὺς φεύγει· φόβον γὰρ ἔχει.", "Eurystheus vlucht, want hij heeft angst."],
+      ["Ὁ δεσπότης τοῦτο οὐ ποιεῖ.", "De meester doet dit niet."],
+      ["Καὶ ὁ θεὸς τοῦτο οὐ ποιεῖ.", "Zelfs de god doet dit niet. (ook: Ook de god doet dit niet.)"],
+      ["Ὁ δοῦλος τὸν δεσπότην φεύγει.", "De slaaf vlucht voor de meester."],
+      ["Ὁ Ἡρακλῆς τὸ θηρίον εἰς τὴν χώραν φέρει.", "Herakles brengt het beest naar het land."],
+      ["Οἱ ἄνθρωποι νῦν φόβον οὐκ ἔχουσιν· ὁ γὰρ Ἡρακλῆς τὸ θηρίον λαμβάνει.", "De mensen hebben nu geen angst, want Herakles pakt het beest."]
+    ]
+  },
+  "naamvallen": {
+    "uitleg": "Nominativus en accusativus, enkelvoud en meervoud, uit het rijtje van les 3 (η/α-groep en o-groep).",
+    "vormen": ["nominativus enkelvoud", "accusativus enkelvoud", "nominativus meervoud", "accusativus meervoud"],
+    "woorden": [
+      {"w": "ἡ μάχη", "nl": "strijd", "v": ["ἡ μάχη", "τὴν μάχην", "αἱ μάχαι", "τὰς μάχας"]},
+      {"w": "ἡ χώρα", "nl": "streek", "v": ["ἡ χώρα", "τὴν χώραν", "αἱ χῶραι", "τὰς χώρας"]},
+      {"w": "ὁ δεσπότης", "nl": "meester", "v": ["ὁ δεσπότης", "τὸν δεσπότην", "οἱ δεσπόται", "τοὺς δεσπότας"]},
+      {"w": "ὁ δοῦλος", "nl": "slaaf", "v": ["ὁ δοῦλος", "τὸν δοῦλον", "οἱ δοῦλοι", "τοὺς δούλους"]},
+      {"w": "ὁ θεός", "nl": "god", "v": ["ὁ θεός", "τὸν θεόν", "οἱ θεοί", "τοὺς θεούς"]},
+      {"w": "ὁ ἄνθρωπος", "nl": "mens", "v": ["ὁ ἄνθρωπος", "τὸν ἄνθρωπον", "οἱ ἄνθρωποι", "τοὺς ἀνθρώπους"]},
+      {"w": "ὁ φόβος", "nl": "angst", "v": ["ὁ φόβος", "τὸν φόβον", "οἱ φόβοι", "τοὺς φόβους"]},
+      {"w": "τὸ θηρίον", "nl": "dier", "v": ["τὸ θηρίον", "τὸ θηρίον", "τὰ θηρία", "τὰ θηρία"]}
+    ],
+    "zinnen": [
+      ["Ὁ θεὸς ___ οὐκ ἔχει.", ["φόβος", "φόβον"], 1, "De god heeft geen angst.", "lijdend voorwerp → accusativus"],
+      ["___ τὴν χώραν ἔχει.", ["ὁ θεός", "τὸν θεόν"], 0, "De god heeft de streek.", "onderwerp → nominativus"],
+      ["Οἱ δοῦλοι ___ ἔχουσιν.", ["φόβος", "φόβον"], 1, "De slaven hebben angst.", "lijdend voorwerp → accusativus"],
+      ["Ὁ Εὐρυσθεὺς ___ οὐκ ἔστιν.", ["θεός", "θεόν"], 0, "Eurystheus is geen god.", "naamwoordelijk deel bij ‘is’ → nominativus"],
+      ["Οἱ θεοὶ ___ οὐκ εἰσίν.", ["ἄνθρωποι", "ἀνθρώπους"], 0, "De goden zijn geen mensen.", "naamwoordelijk deel bij ‘zijn’ → nominativus"],
+      ["Ὁ δοῦλος ___ φεύγει.", ["ὁ δεσπότης", "τὸν δεσπότην"], 1, "De slaaf vlucht voor de meester.", "φεύγει + accusativus"],
+      ["___ τὸν δοῦλον φέρει.", ["ὁ θεός", "τὸν θεόν"], 0, "De god brengt de slaaf.", "onderwerp → nominativus"],
+      ["Ὁ Ἡρακλῆς εἰς ___ βαίνει.", ["ἡ μάχη", "τὴν μάχην"], 1, "Herakles gaat het gevecht in.", "εἰς + accusativus"],
+      ["Τὸ θηρίον ___ φέρει.", ["φόβος", "φόβον"], 1, "Het beest brengt angst.", "lijdend voorwerp → accusativus"],
+      ["___ φόβον ἔχουσιν.", ["οἱ ἄνθρωποι", "τοὺς ἀνθρώπους"], 0, "De mensen hebben angst.", "onderwerp (meervoud) → nominativus meervoud"],
+      ["Ὁ δεσπότης ___ ἔχει.", ["οἱ δοῦλοι", "τοὺς δούλους"], 1, "De meester heeft slaven.", "lijdend voorwerp (meervoud) → accusativus meervoud"],
+      ["Ὁ θεὸς τὴν χώραν ___.", ["ἔχει", "ἔχουσιν"], 0, "De god heeft de streek.", "onderwerp enkelvoud → werkwoord enkelvoud"],
+      ["Οἱ δοῦλοι φόβον ___.", ["ἔχει", "ἔχουσιν"], 1, "De slaven hebben angst.", "onderwerp meervoud → werkwoord meervoud"],
+      ["Ὁ Ἡρακλῆς ___ οὐκ ἔστιν.", ["δοῦλος", "δοῦλον"], 0, "Herakles is geen slaaf.", "naamwoordelijk deel bij ‘is’ → nominativus"],
+      ["Ἡ χώρα ___ ἔχει.", ["φόβος", "φόβον"], 1, "De streek heeft angst.", "lijdend voorwerp → accusativus"]
+    ]
+  }
+}
