@@ -156,6 +156,9 @@ textarea.ans { resize: vertical; min-height: 92px; line-height: 1.4; }
 [lang="grc"], .grc { font-family: var(--font-greek); }
 .term[lang="grc"], .zin[lang="grc"] { font-weight: 700; }
 .opts { display: grid; gap: 8px; }
+.opts.two { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: column; grid-template-rows: repeat(4, auto); }
+.opts.two .opt { font-size: 0.95rem; padding: 10px 12px; }
+.rij { display: flex; flex-direction: column; gap: 2px; }
 .opt { text-align: left; background: var(--bg); border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; font-weight: 600; font-size: 1.1rem; min-height: 48px; }
 .opt.grc { font-size: 1.3rem; }
 .opt[disabled] { cursor: default; opacity: 1; }
@@ -312,7 +315,7 @@ function helpHtml(T) {
     h += '<li>Hoofdletters maken niet uit.</li></ul>';
   } else {
     h += '<p><b>Bij ' + esc(T.naam) + '</b></p><ul><li>Je vertaalt van ' + esc(T.naam) + ' naar het Nederlands. Bij werkwoorden mag je "hij/zij/het" weglaten: <em>' + (T.naamvallen ? 'heeft' : 'ontvangt') + '</em> is goed.</li><li>Een kleine typfout telt als Verkeerd gespeld, niet als fout.</li>';
-    if (T.naamvallen) h += '<li><b>Naamvallen:</b> je hoeft geen Grieks te typen. Je kiest de juiste vorm uit het rijtje, herkent een vorm, of vult de goede vorm in een zin in. Er zijn drie soorten vragen door elkaar. Deze oefening gaat over heel les 3, de teksten die je aanklikt tellen hier niet.</li>';
+    if (T.naamvallen) h += '<li><b>Naamvallen:</b> je hoeft geen Grieks te typen. Je herkent een vorm uit het rijtje (alle vier de naamvallen, enkelvoud en meervoud), maakt een vorm, of vult de goede vorm in een zin in. Er zijn drie soorten vragen door elkaar. Deze oefening gaat over heel les 3, de teksten die je aanklikt tellen hier niet.</li>';
     h += '</ul>';
   }
   h += '<p class="hint">Je voortgang wordt bewaard in deze browser. Op een ander apparaat begin je opnieuw.</p></section>';
@@ -451,7 +454,7 @@ var NS = [], NBY = {};
 function nBuild() {
   NS = []; NBY = {};
   var N = TALEN[S.lang].naamvallen; if (!N) return;
-  var pre = S.lang + '|n|';
+  var pre = S.lang + '|n2|';
   N.woorden.forEach(function (w, wi) {
     var seen = {};
     w.v.forEach(function (f, fi) {
@@ -473,7 +476,7 @@ function uniq(a) { var o = [], s = {}; a.forEach(function (x) { if (!s[x]) { s[x
 function nOptions(q) {
   var N = TALEN[S.lang].naamvallen;
   if (q.t === 'h') return N.vormen.map(function (v, i) { return { id: i, txt: v, grc: false }; });
-  if (q.t === 'm') return shuffle(uniq(q.w.v)).map(function (f, i) { return { id: i, txt: f, grc: true }; });
+  if (q.t === 'm') { var c = q.w.v[q.fi], rest = shuffle(uniq(q.w.v).filter(function (f) { return f !== c; })).slice(0, 3); return shuffle([c].concat(rest)).map(function (f, i) { return { id: i, txt: f, grc: true }; }); }
   return q.z[1].map(function (f, i) { return { id: i, txt: f, grc: true }; });
 }
 function nCorrect(q, opts, id) {
@@ -493,15 +496,16 @@ function nHome() {
   h += '</div><section class="panel" role="tabpanel"><p class="hint">' + esc(N.uitleg) + '</p>';
   var n = Math.min(NROUND, inTab.length);
   h += '<div class="row"><button class="btn primary" data-a="ngo"' + (n ? '' : ' disabled') + '>' + (n ? 'Oefen ' + n + (n === 1 ? ' vraag' : ' vragen') : 'Geen vragen in deze lijst') + '</button></div>';
-  h += '<p class="hint">Drie soorten vragen door elkaar: welke vorm is dit, maak de vorm, en vul de juiste vorm in een zin in. Je kiest steeds uit een paar antwoorden.</p>';
+  h += '<p class="hint">Drie soorten vragen door elkaar: welke vorm is dit, maak de vorm, en vul de juiste vorm in een zin in. De invulzinnen gaan alleen over nominativus en accusativus, zoals in oefening B.</p>';
   h += '<details><summary>Het rijtje</summary><ul class="words">' + N.woorden.map(function (w) {
-    return '<li><div class="wtxt"><span class="lat" lang="grc">' + esc(w.w) + ' <span class="ch">' + esc(w.nl) + '</span></span><span class="nl" lang="grc">' + w.v.map(esc).join(' · ') + '</span></div></li>';
+    return '<li><div class="wtxt"><span class="lat" lang="grc">' + esc(w.w) + ' <span class="ch">' + esc(w.nl) + '</span></span><span class="nl">' + rij(w) + '</span></div></li>';
   }).join('') + '</ul></details></section>';
   h += '<div class="foot">';
   if (confirmReset) h += '<span>Voortgang van de naamvallen wissen? Woordjes en zinnen blijven staan.</span><button class="btn" data-a="reset-yes">Ja, wis</button><button class="btn" data-a="reset-no">Nee</button>';
   else h += '<button class="link" data-a="reset">Naamvallen opnieuw beginnen</button>';
   return h + '</div>';
 }
+function rij(w) { var v = w.v.map(esc); return '<span class="rij" lang="grc"><span>' + v.slice(0, 4).join(' · ') + '</span><span>' + v.slice(4).join(' · ') + '</span></span>'; }
 function nQuestion(q) {
   var N = TALEN[S.lang].naamvallen;
   if (q.t === 'h') return '<p class="ask">Welke vorm is dit?</p><p class="term" lang="grc">' + esc(q.w.v[q.fi]) + '</p><p class="hint">van <span lang="grc">' + esc(q.w.w) + '</span> (' + esc(q.w.nl) + ')</p>';
@@ -513,7 +517,7 @@ function nAsk() {
   R.opts = nOptions(q);
   var h = zBar(R.i);
   h += '<div class="card"><div><span class="from">Uit ' + esc(ZCAT[R.from].n) + ' · naamvallen</span></div>' + nQuestion(q);
-  h += '<div class="opts">' + R.opts.map(function (o) { return '<button class="opt' + (o.grc ? ' grc' : '') + '" data-a="nopt" data-id="' + o.id + '"' + (o.grc ? ' lang="grc"' : '') + '>' + esc(o.txt) + '</button>'; }).join('') + '</div>';
+  h += '<div class="opts' + (q.t === 'h' ? ' two' : '') + '">' + R.opts.map(function (o) { return '<button class="opt' + (o.grc ? ' grc' : '') + '" data-a="nopt" data-id="' + o.id + '"' + (o.grc ? ' lang="grc"' : '') + '>' + esc(o.txt) + '</button>'; }).join('') + '</div>';
   h += '<div class="row"><button class="btn" type="button" data-a="nskip">Weet ik niet</button></div></div>';
   app.innerHTML = h;
   var first = app.querySelector('.opt'); if (first) first.focus();
@@ -530,14 +534,13 @@ function nResult() {
   var q = NBY[R.queue[R.i]], r = R.last;
   var h = zBar(R.i + 1);
   h += '<div class="card">' + nQuestion(q);
-  h += '<div class="opts">' + R.opts.map(function (o) {
+  h += '<div class="opts' + (q.t === 'h' ? ' two' : '') + '">' + R.opts.map(function (o) {
     var ok = nCorrect(q, R.opts, o.id), cls = ok ? ' good' : (o.id === r.picked ? ' bad' : '');
     return '<button class="opt' + (o.grc ? ' grc' : '') + cls + '" disabled' + (o.grc ? ' lang="grc"' : '') + '>' + esc(o.txt) + (ok ? ' ✓' : o.id === r.picked ? ' ✗' : '') + '</button>';
   }).join('') + '</div>';
   h += '<div class="fb k-' + r.to + '" aria-live="polite"><strong>' + (r.to === 'b' ? 'Goed!' : r.skipped ? 'Dat wist je nog niet' : 'Niet goed') + '</strong>';
   if (q.t === 'z') h += '<p>' + esc(q.z[3]) + '</p><p class="why">' + esc(q.z[4]) + '</p>';
-  else if (q.t === 'h') h += '<p class="why">Hele rijtje van <span lang="grc">' + esc(q.w.w) + '</span>: <span lang="grc">' + q.w.v.map(esc).join(' · ') + '</span></p>';
-  else h += '<p class="why">Rijtje: <span lang="grc">' + q.w.v.map(esc).join(' · ') + '</span></p>';
+  else h += '<p class="why">Rijtje van <span lang="grc">' + esc(q.w.w) + '</span>, in de volgorde van het boek:</p><p class="why">' + rij(q.w) + '</p>';
   h += '<p class="dest">Deze vraag gaat naar ' + esc(ZCAT[r.to].n) + '.</p></div>';
   h += '<button class="btn primary" id="next" data-a="nnext">' + (R.i + 1 < R.queue.length ? 'Volgende' : 'Bekijk je resultaat') + '</button></div>';
   app.innerHTML = h;
